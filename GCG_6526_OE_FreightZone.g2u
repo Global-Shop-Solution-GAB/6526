@@ -1,0 +1,1598 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.f_Main..Create(BaseForm)
+Gui.f_Main..Caption("Freight Zone by Sort Code Maintenance")
+Gui.f_Main..Size(545,540)
+Gui.f_Main..MinX(0)
+Gui.f_Main..MinY(0)
+Gui.f_Main..Position(0,0)
+Gui.f_Main..AlwaysOnTop(False)
+Gui.f_Main..FontName("Tahoma")
+Gui.f_Main..FontSize(8.25)
+Gui.f_Main..ControlBox(True)
+Gui.f_Main..MaxButton(False)
+Gui.f_Main..MinButton(True)
+Gui.f_Main..MousePointer(0)
+Gui.f_Main..Moveable(True)
+Gui.f_Main..Sizeable(False)
+Gui.f_Main..ShowInTaskBar(True)
+Gui.f_Main..TitleBar(True)
+Gui.f_Main..Event(UnLoad,F_Main_Unload)
+Gui.f_Main.GsGcZones.Create(GsGridControl)
+Gui.f_Main.GsGcZones.Enabled(True)
+Gui.f_Main.GsGcZones.Visible(True)
+Gui.f_Main.GsGcZones.Zorder(0)
+Gui.f_Main.GsGcZones.Size(545,452)
+Gui.f_Main.GsGcZones.Position(0,58)
+Gui.f_Main.GsGcZones.Dock(2)
+Gui.f_Main.GsGcZones.Event(CellValueChanged,GsGcZones_CellValueChanged)
+Gui.f_Main.txtSortCode.Create(TextBox,"",True,70,20,0,6,24,True,0,"Tahoma",8.25,,1)
+Gui.f_Main.txtSortCode.TabStop(True)
+Gui.f_Main.txtSortCode.TabIndex(1)
+Gui.f_Main.lblSortCode.Create(Label,"Sort Code:",True,52,13,0,6,6,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Main.lblSortCode.BorderStyle(0)
+Gui.f_Main.cmdSCBrowser.Create(Button)
+Gui.f_Main.cmdSCBrowser.Enabled(True)
+Gui.f_Main.cmdSCBrowser.Visible(True)
+Gui.f_Main.cmdSCBrowser.Zorder(0)
+Gui.f_Main.cmdSCBrowser.Size(25,23)
+Gui.f_Main.cmdSCBrowser.Position(78,22)
+Gui.f_Main.cmdSCBrowser.Caption("^")
+Gui.f_Main.cmdSCBrowser.FontName("Tahoma")
+Gui.f_Main.cmdSCBrowser.FontSize(8.25)
+Gui.f_Main.cmdSCBrowser.Event(Click,cmdSCBrowser_Click)
+Gui.f_Main.cmdSCBrowser.TabStop(True)
+Gui.f_Main.cmdSCBrowser.TabIndex(2)
+Gui.f_Main.ddlFrtZone.Create(DropDownList)
+Gui.f_Main.ddlFrtZone.Enabled(True)
+Gui.f_Main.ddlFrtZone.Visible(True)
+Gui.f_Main.ddlFrtZone.Zorder(0)
+Gui.f_Main.ddlFrtZone.Size(100,20)
+Gui.f_Main.ddlFrtZone.Position(280,24)
+Gui.f_Main.ddlFrtZone.FontName("Tahoma")
+Gui.f_Main.ddlFrtZone.FontSize(8.25)
+Gui.f_Main.ddlFrtZone.TabStop(True)
+Gui.f_Main.ddlFrtZone.TabIndex(4)
+Gui.f_Main.lblFrtZone.Create(Label,"Freight Zone:",True,65,13,0,280,6,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Main.lblFrtZone.BorderStyle(0)
+Gui.f_Main.lblPct.Create(Label,"Percentage:",True,59,13,0,386,6,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Main.lblPct.BorderStyle(0)
+Gui.f_Main.txtPct.Create(TextBox,"",True,77,20,0,386,24,True,0,"Tahoma",8.25,,1)
+Gui.f_Main.txtPct.TabStop(True)
+Gui.f_Main.txtPct.TabIndex(5)
+Gui.f_Main.txtPct.NumericOnly(2)
+Gui.f_Main.cmdSave.Create(Button)
+Gui.f_Main.cmdSave.Enabled(True)
+Gui.f_Main.cmdSave.Visible(True)
+Gui.f_Main.cmdSave.Zorder(0)
+Gui.f_Main.cmdSave.Size(56,23)
+Gui.f_Main.cmdSave.Position(480,22)
+Gui.f_Main.cmdSave.Caption("Save")
+Gui.f_Main.cmdSave.FontName("Tahoma")
+Gui.f_Main.cmdSave.FontSize(8.25)
+Gui.f_Main.cmdSave.Event(Click,cmdSave_Click)
+Gui.f_Main.cmdSave.TabStop(True)
+Gui.f_Main.cmdSave.TabIndex(6)
+Gui.f_Main.txtDesc.Create(TextBox,"",True,169,20,0,106,24,True,0,"Tahoma",8.25,,1)
+Gui.f_Main.txtDesc.TabStop(True)
+Gui.f_Main.txtDesc.TabIndex(3)
+Gui.f_Main.txtDesc.Locked(True)
+Gui.f_Main.lblDesc.Create(Label,"Description:",True,57,13,0,106,6,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Main.lblDesc.BorderStyle(0)
+Gui.f_Upcharge..Create(BaseForm)
+Gui.f_Upcharge..Caption("Upcharge Calculation")
+Gui.f_Upcharge..Size(223,216)
+Gui.f_Upcharge..MinX(0)
+Gui.f_Upcharge..MinY(0)
+Gui.f_Upcharge..Position(0,0)
+Gui.f_Upcharge..AlwaysOnTop(False)
+Gui.f_Upcharge..FontName("Tahoma")
+Gui.f_Upcharge..FontSize(8.25)
+Gui.f_Upcharge..ControlBox(True)
+Gui.f_Upcharge..MaxButton(False)
+Gui.f_Upcharge..MinButton(False)
+Gui.f_Upcharge..MousePointer(0)
+Gui.f_Upcharge..Moveable(True)
+Gui.f_Upcharge..Sizeable(False)
+Gui.f_Upcharge..ShowInTaskBar(True)
+Gui.f_Upcharge..TitleBar(True)
+Gui.f_Upcharge..Event(UnLoad,cmdCancel_Click)
+Gui.f_Upcharge.lblUpPct.Create(Label,"Upcharge Percentage:",True,108,13,0,10,72,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Upcharge.lblUpPct.BorderStyle(0)
+Gui.f_Upcharge.lblUpPct.Anchor(9)
+Gui.f_Upcharge.txtUpPct.Create(TextBox,"",True,90,20,0,123,68,True,0,"Tahoma",8.25,,1)
+Gui.f_Upcharge.txtUpPct.NumericOnly(1)
+Gui.f_Upcharge.txtUpPct.Anchor(9)
+Gui.f_Upcharge.lblUpAmt.Create(Label,"Upcharge Amount:",True,90,13,0,10,100,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Upcharge.lblUpAmt.BorderStyle(0)
+Gui.f_Upcharge.lblUpAmt.Anchor(9)
+Gui.f_Upcharge.txtUpAmt.Create(TextBox,"",True,90,20,0,123,96,True,0,"Tahoma",8.25,,1)
+Gui.f_Upcharge.txtUpAmt.Locked(True)
+Gui.f_Upcharge.txtUpAmt.Anchor(9)
+Gui.f_Upcharge.cmdCalculate.Create(Button)
+Gui.f_Upcharge.cmdCalculate.Enabled(True)
+Gui.f_Upcharge.cmdCalculate.Visible(True)
+Gui.f_Upcharge.cmdCalculate.Zorder(0)
+Gui.f_Upcharge.cmdCalculate.Size(75,23)
+Gui.f_Upcharge.cmdCalculate.Position(140,158)
+Gui.f_Upcharge.cmdCalculate.Caption("Calculate")
+Gui.f_Upcharge.cmdCalculate.FontName("Tahoma")
+Gui.f_Upcharge.cmdCalculate.FontSize(8.25)
+Gui.f_Upcharge.cmdCalculate.Event(Click,cmdCalculate_Click)
+Gui.f_Upcharge.cmdCalculate.Anchor(9)
+Gui.f_Upcharge.cmdCancel.Create(Button)
+Gui.f_Upcharge.cmdCancel.Enabled(True)
+Gui.f_Upcharge.cmdCancel.Visible(True)
+Gui.f_Upcharge.cmdCancel.Zorder(0)
+Gui.f_Upcharge.cmdCancel.Size(75,23)
+Gui.f_Upcharge.cmdCancel.Position(11,158)
+Gui.f_Upcharge.cmdCancel.Caption("Cancel")
+Gui.f_Upcharge.cmdCancel.FontName("Tahoma")
+Gui.f_Upcharge.cmdCancel.FontSize(8.25)
+Gui.f_Upcharge.cmdCancel.Event(Click,cmdCancel_Click)
+Gui.f_Upcharge.txtQuoteNo.Create(TextBox,"",True,75,20,0,73,8,False,0,"Tahoma",8.25,,1)
+Gui.f_Upcharge.lblQuoteNo.Create(Label,"Quote No:",True,50,13,0,10,12,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Upcharge.lblQuoteNo.BorderStyle(0)
+Gui.f_Upcharge.lblQteLine.Create(Label,"Quote Line:",True,56,13,0,10,40,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Upcharge.lblQteLine.BorderStyle(0)
+Gui.f_Upcharge.txtQteLine.Create(TextBox,"",True,75,20,0,73,36,False,0,"Tahoma",8.25,,1)
+Gui.f_Upcharge.lblUpdateBy.Create(Label,"Last Update by: ",True,80,13,0,13,128,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Upcharge.lblUpdateBy.BorderStyle(0)
+Gui.f_Upcharge.lblUpdateBy.FontStyle(False,True,False,False,False)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+V.Global.bError.Declare(Boolean)
+V.Global.bUnattended.Declare(Boolean)
+V.Global.sPart.Declare(String)
+V.Global.sRev.Declare(String)
+V.Global.sLoc.Declare(String)
+V.Global.sLastRun.Declare(String, "N")
+V.Global.bSaved.Declare(Boolean, False)
+V.Global.bUpchargeExists.Declare(Boolean, False)
+V.Global.bQuoteLines.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.Try
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+
+'open the connection
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN, V.Ambient.PUser, V.Ambient.PPass)
+
+'check for sales order line hooks and quote lines hook
+F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+	F.Intrinsic.Control.Case(12010)
+		'order lines populate hook 
+		'callsub to do screen setup
+		F.Intrinsic.Control.CallSub(OrderLinePopulate)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12040)
+		'order lines part change hook
+		V.Global.sPart.Set(V.Passed.000052)
+		V.Global.sRev.Set(V.Passed.000053)
+		V.Global.sLoc.Set(V.Passed.000054)
+		F.Intrinsic.Control.CallSub(LoadInvSC)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12435)
+	'Custom chk-1 change hook
+		F.Intrinsic.Control.CallSub(CustomChkChange)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12437)
+	'custom text 1 change hook
+		F.Intrinsic.Control.CallSub(CustomTxtChange)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	f.Intrinsic.Control.Case(12140)
+		'price change hook
+		F.Intrinsic.Control.CallSub(OrderPriceChange)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12230)
+		'order lines pre save hook
+		F.Intrinsic.Control.CallSub(ProcessOrderLine)
+		V.Global.sLastRun.Set("Y")
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12242)
+	'order lines post delete
+		'callsub to delete upcharge record when the order line is deleted
+		F.Intrinsic.Control.CallSub(OELineDelete)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12430)
+		'order lines script 3 button
+		'show the sort code browser and allow the user to select a sort code
+		F.Intrinsic.Control.CallSub(SCBrowser)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(12705)
+	'line item change hook
+		'add logic to pull in upcharge if it exists
+		F.Intrinsic.Control.CallSub(OEUpchargeCheck)
+	F.Intrinsic.Control.Case(10260)
+	'quote lines populate hook 
+		'set the script 2 label
+		V.Passed.000202.Set("Cal Upcharge")
+		'set the script 3 label
+		V.Passed.000203.Set("Sort Codes")
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(10300)
+	'quote lines part change hook
+		'order lines part change hook
+		V.Global.sPart.Set(V.Passed.000052)
+		V.Global.sRev.Set(V.Passed.000053)
+		V.Global.sLoc.Set(V.Passed.000054)
+		V.Global.bQuoteLines.Set(True)
+		F.Intrinsic.Control.CallSub(LoadInvSC)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(10400)
+	'quote lines price change hook
+		F.Intrinsic.Control.CallSub(QuotePriceChange)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(10531)
+	'quote lines pre save hook
+		F.Intrinsic.Control.CallSub(ProcessQuoteLine)
+		V.Global.sLastRun.Set("Y")
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(10680)
+	'quote lines script 2 button
+		'call sub to setup upcharge screen
+		F.Intrinsic.Control.CallSub(UpchargeCheck)
+		F.Intrinsic.Task.SetEnvironmentVariable("USEDARKTHEME", False)
+		Gui.f_Upcharge..ApplyTheme()
+		Gui.f_Upcharge..Show
+	F.Intrinsic.Control.Case(10690)
+	'quote lines script 3 button
+		F.Intrinsic.Control.CallSub(SCBrowser)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.Case(10542)
+	'quote lines post delete hook
+		'callsub to delete the upcharge record from the custom table if it exists
+		
+		F.Intrinsic.Control.CallSub(DeleteQteUpchrg)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.CaseElse
+		
+		F.Intrinsic.Task.SetEnvironmentVariable("USEDARKTHEME", False)
+		Gui.f_Main..ApplyTheme()
+		'if not sales order line hook, assume it's the maintenance screen
+		'Load dropdown list
+		Gui.f_Main.ddlFrtZone.AddItem(" ",0)
+		Gui.f_Main.ddlFrtZone.AddItem("Zone 1",1)
+		Gui.f_Main.ddlFrtZone.AddItem("Zone 2",2)
+		Gui.f_Main.ddlFrtZone.AddItem("Zone 3",3)
+		Gui.f_Main.ddlFrtZone.AddItem("Zone 4",4)
+		Gui.f_Main.ddlFrtZone.AddItem("Zone 5",5)
+
+		'callsub to create datatable
+		F.Intrinsic.Control.CallSub(LoadGrid)
+
+		'callsub to format grid
+		F.Intrinsic.Control.CallSub(FormatGrid)
+		Gui.f_Main..Show
+F.Intrinsic.Control.EndSelect
+
+'F.Intrinsic.Control.CallSub(F_Main_Unload)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.OrderLinePopulate.Start
+F.Intrinsic.Control.Try
+'set the script 3 label
+V.Passed.000210.Set("Sort Codes")
+		
+'GAB-LB-1
+'for label
+'Set horizontal position
+F.Intrinsic.Variable.SetProperty("GAB-LBL-1", "PL", 250)
+'set vertical position
+F.Intrinsic.Variable.SetProperty("GAB-LBL-1", "PT", 225)
+'Set width
+F.Intrinsic.Variable.SetProperty("GAB-LBL-1", "PW", 100)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "HIDE", 0)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "LOCK", 0)
+V.Passed.GAB-LBL-1.Set("Calculate Upcharge")
+		
+'GAB-CHK-1
+'For Check Box
+'set horizontal postion
+F.Intrinsic.Variable.SetProperty("GAB-CHK-1", "PL", 230)
+'set vertical position
+F.Intrinsic.Variable.SetProperty("GAB-CHK-1", "PT", 225)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "HIDE", 0)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+V.Passed.GAB-CHK-1.Set("N")
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+		
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "HIDE", 1)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "LOCK", 1)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "HIDE", 1)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "LOCK", 1)
+		
+		
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-3, "HIDE", 1)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-3, "LOCK", 1)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2, "HIDE", 1)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2, "LOCK", 1)
+
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "LOCK", 0)
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.OrderLinePopulate.End
+
+Program.Sub.CustomChkChange.Start
+F.Intrinsic.Control.Try
+
+F.Intrinsic.Control.If(V.Passed.GAB-CHK-1,=,"Y")
+	'GAB-LB-2
+	'for label
+	'Set horizontal position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-2", "PL", 220)
+	'set vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-2", "PT", 245)
+	'Set width
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-2", "PW", 90)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "HIDE", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "LOCK", 0)
+	V.Passed.GAB-LBL-2.Set("Upcharge Percent")
+		
+	'GAB-TEXT-1
+	'for entering custom upcharge value
+	'set horizontal postion
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1", "PL", 310)
+	'set the vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1", "PT", 245)
+	'set the textbox width
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1", "PW", 30)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "HIDE", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "LOCK", 0)
+F.Intrinsic.Control.ElseIf(V.Passed.GAB-CHK-1,=,"N", "AND",V.Passed.GAB-TEXT-1,=,"")
+	V.Passed.GAB-TEXT-1.Set("")
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "HIDE", 1)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "HIDE", 1)
+	
+	V.Passed.GAB-TEXT-2.Set("")
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-3, "HIDE", 1)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2, "HIDE", 1)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.CustomChkChange.End
+
+Program.Sub.CustomTxtChange.Start
+F.Intrinsic.Control.Try
+V.Local.fListPrice.Declare(Float)
+V.Local.fUpchargePct.Declare(Float)
+V.Local.fTotalUpcharge.Declare(Float)
+V.Local.sSQL.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.fExistUpchargePct.Declare(Float)
+V.Local.fExistUpchargeAmt.Declare(Float)
+V.Local.sOrderNo.Declare(String)
+V.Local.sOrderline.Declare(String)
+V.Local.sWonFlag.Declare(String)
+V.Local.sOrigQteLine.Declare(String)
+V.Local.sOrigQte.Declare(String)
+V.Local.sRet2.Declare(String)
+
+
+'set the passed variables
+V.Local.sOrderLine.Set(V.Passed.000051)
+F.Intrinsic.String.LPad(V.Local.sOrderLine, "0", 3, V.Local.sOrderLine)
+F.Intrinsic.String.RPad(v.Local.sOrderLine, "0", 4, V.Local.sOrderLine)
+V.Local.sOrderNo.Set(V.Passed.000060)
+F.Intrinsic.String.LPad(V.Local.sOrderNo, "0", 7, V.Local.sOrderNo)
+
+f.Intrinsic.Control.If(v.Passed.GAB-TEXT-1,<>,"")
+	'GAB-LB-2
+	'for label
+	'Set horizontal position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-2", "PL", 220)
+	'set vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-2", "PT", 245)
+	'Set width
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-2", "PW", 90)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "HIDE", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "LOCK", 0)
+	V.Passed.GAB-LBL-2.Set("Upcharge Percent")
+			
+	'GAB-TEXT-1
+	'for entering custom upcharge value
+	'set horizontal postion
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1", "PL", 310)
+	'set the vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1", "PT", 245)
+	'set the textbox width
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1", "PW", 30)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "HIDE", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "LOCK", 0)
+	
+	V.Local.fListPrice.Set(V.Passed.000009)
+	V.Local.fUpchargePct.Set(V.Passed.GAB-TEXT-1)
+
+	'check to see if an existing percentage exists. if it does, and matches the current value, don't recalculate
+	F.Intrinsic.String.Build("SELECT UPCHRG_PCT, TOTAL_UPCHRG FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*", V.Local.sRet)
+		V.Local.fExistUpchargePct.Set(V.Local.sRet(0).Float)
+		V.Local.fExistUpchargeAmt.Set(V.Local.sRet(1).Float)
+		F.Intrinsic.Control.If(V.Local.fUpchargePct,=,V.Local.fExistUpchargePct, "AND", V.Local.fExistUpchargeAmt,=,V.Passed.GAB-TEXT-2)
+			V.Local.fTotalUpcharge.Set(V.Local.fExistUpchargeAmt)
+		F.Intrinsic.Control.Else
+			'calculate total upcharge - list price x upcharge percentage
+			'check to make sure the user hasn't entered a whole number
+			F.Intrinsic.Control.If(V.Local.fUpchargePct,>=,1)
+				F.Intrinsic.Math.Div(V.Local.fUpchargePct, 100, V.Local.fUpchargePct)
+			F.Intrinsic.Control.EndIf
+			'if they have, divide the value by 100 to get percentage amount
+			'user percentage amount to multiply by list price
+			F.Intrinsic.Math.Mult(v.Local.fListPrice, V.Local.fUpchargePct, V.Local.fTotalUpcharge)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("SELECT A.ORDER_WON, A.ORIG_ORDER_LINE, B.QUOTE FROM V_ORDER_LINES A LEFT JOIN V_ORDER_HEADER B ON A.ORDER_NO = B.ORDER_NO WHERE A.ORDER_NO = '{0}' AND A.RECORD_NO = '{1}'", V.Local.sOrderNo, V.Local.sOrderLine, V.Local.sSQL)
+		F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*", V.Local.sRet)
+			V.Local.sWonFlag.Set(V.Local.sRet(0).Trim)
+			V.Local.sOrigQteLine.Set(V.Local.sRet(1).Trim)
+			V.Local.sOrigQte.Set(V.Local.sRet(2).Trim)
+			F.Intrinsic.Control.If(V.Local.sWonFlag.Trim,=,"W")
+				F.Intrinsic.String.Build("SELECT UPCHRG_PCT, TOTAL_UPCHRG FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sOrigQte.Trim, V.Local.sOrigQteLine.Trim, V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet2)
+				F.Intrinsic.Control.If(V.Local.sRet2.Trim,<>,"")
+					F.Intrinsic.String.Split(V.Local.sRet2, "*!*", V.Local.sRet2)
+					V.Local.fExistUpchargePct.Set(V.Local.sRet2(0).Float)
+					V.Local.fExistUpchargeAmt.Set(V.Local.sRet2(1).Float)
+					F.Intrinsic.Control.If(V.Local.fUpchargePct,=,V.Local.fExistUpchargePct, "AND", V.Local.fExistUpchargeAmt,=,V.Passed.GAB-TEXT-2)
+						V.Local.fTotalUpcharge.Set(V.Local.fExistUpchargeAmt)
+					F.Intrinsic.Control.Else
+						'calculate total upcharge - list price x upcharge percentage
+						'check to make sure the user hasn't entered a whole number
+						F.Intrinsic.Control.If(V.Local.fUpchargePct,>=,1)
+							F.Intrinsic.Math.Div(V.Local.fUpchargePct, 100, V.Local.fUpchargePct)
+						F.Intrinsic.Control.EndIf
+						'if they have, divide the value by 100 to get percentage amount
+						'user percentage amount to multiply by list price
+						F.Intrinsic.Math.Mult(v.Local.fListPrice, V.Local.fUpchargePct, V.Local.fTotalUpcharge)
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.Else
+				'	calculate total upcharge - list price x upcharge percentage
+					'check to make sure the user hasn't entered a whole number
+					F.Intrinsic.Control.If(V.Local.fUpchargePct,>=,1)
+						F.Intrinsic.Math.Div(V.Local.fUpchargePct, 100, V.Local.fUpchargePct)
+					F.Intrinsic.Control.EndIf
+					'if they have, divide the value by 100 to get percentage amount
+					'user percentage amount to multiply by list price
+					F.Intrinsic.Math.Mult(v.Local.fListPrice, V.Local.fUpchargePct, V.Local.fTotalUpcharge)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.Else	
+				'calculate total upcharge - list price x upcharge percentage
+				'check to make sure the user hasn't entered a whole number
+				F.Intrinsic.Control.If(V.Local.fUpchargePct,>=,1)
+					F.Intrinsic.Math.Div(V.Local.fUpchargePct, 100, V.Local.fUpchargePct)
+				F.Intrinsic.Control.EndIf
+				'if they have, divide the value by 100 to get percentage amount
+				'user percentage amount to multiply by list price
+				F.Intrinsic.Math.Mult(v.Local.fListPrice, V.Local.fUpchargePct, V.Local.fTotalUpcharge)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			'calculate total upcharge - list price x upcharge percentage
+			'check to make sure the user hasn't entered a whole number
+			F.Intrinsic.Control.If(V.Local.fUpchargePct,>=,1)
+				F.Intrinsic.Math.Div(V.Local.fUpchargePct, 100, V.Local.fUpchargePct)
+			F.Intrinsic.Control.EndIf
+			'if they have, divide the value by 100 to get percentage amount
+			'user percentage amount to multiply by list price
+			F.Intrinsic.Math.Mult(v.Local.fListPrice, V.Local.fUpchargePct, V.Local.fTotalUpcharge)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	'GAB-LB-3
+	'for label
+	'Set horizontal position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-3", "PL", 375)
+	'set vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-3", "PT", 245)
+	'Set width
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-3", "PW", 75)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-3, "HIDE", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-3, "LOCK", 0)
+	V.Passed.GAB-LBL-3.Set("Total Upcharge")
+	
+	'GAB-TEXT-2
+	'for entering custom upcharge value
+	'set horizontal postion
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-2", "PL", 455)
+	'set the vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-2", "PT", 245)
+	'set the textbox width
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-2", "PW", 45)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2, "HIDE", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2, "LOCK", 1)
+	V.Passed.GAB-TEXT-2.Set(V.Local.fTotalUpcharge)
+f.Intrinsic.Control.EndIf
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.CustomTxtChange.End
+
+Program.Sub.OrderPriceChange.Start
+F.Intrinsic.Control.Try
+V.Local.bFileExists.Declare(Boolean)
+V.Local.sFQP.Declare(String)
+
+'check to see if the user fields have values
+F.Intrinsic.Control.If(V.Passed.000080,<>,"", "OR", V.Passed.000082,<>,"", V.Passed.000084,<>,"")
+	F.Intrinsic.String.Build("{0}\PriceCalc_6526.txt", V.Caller.FilesDir, V.Local.sFQP)
+	F.Intrinsic.File.Exists(V.Local.sFQP, V.Local.bFileExists)
+	F.Intrinsic.Control.If(V.Local.bFileExists,=,True)
+		F.Intrinsic.File.DeleteFile(V.Local.sFQP)
+		F.Intrinsic.File.String2File(V.Local.sFQP, "Price already calculated.")
+		V.Global.sLastRun.Set("N")
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.OrderPriceChange.End
+
+Program.Sub.QuotePriceChange.Start
+F.Intrinsic.Control.Try
+V.Local.bFileExists.Declare(Boolean)
+V.Local.sFQP.Declare(String)
+
+F.Intrinsic.Control.If(V.Passed.000023,<>,"", "OR", V.Passed.000015,<>,"", V.Passed.000017,<>,"")
+	F.Intrinsic.String.Build("{0}\Quote_PriceCalc_6526.txt", V.Caller.FilesDir, V.Local.sFQP)
+	F.Intrinsic.File.Exists(V.Local.sFQP, V.Local.bFileExists)
+	F.Intrinsic.Control.If(V.Local.bFileExists,=,1)
+		F.Intrinsic.File.DeleteFile(V.Local.sFQP)
+		F.Intrinsic.File.String2File(V.Local.sFQP, "Price already calculated.")
+		V.Global.sLastRun.Set("N")
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.QuotePriceChange.End
+
+Program.Sub.LoadInvSC.Start
+F.Intrinsic.Control.Try
+V.Local.sPart.Declare(String)
+V.Local.sRev.Declare(String)
+V.Local.sFullPart.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+
+F.Intrinsic.String.RPad(V.Global.sPart, " ",17, V.Local.sPart)
+F.Intrinsic.String.RPad(V.Global.sRev, " ",3, V.Local.sRev)
+F.Intrinsic.String.Build("{0}{1}", V.Local.sPart, V.Local.sRev, V.Local.sFullPart)
+
+F.Intrinsic.String.Build("SELECT CODE_SORT FROM V_INVENTORY_MSTR WHERE PART = '{0}' AND LOCATION = '{1}'", V.Local.sFullPart, V.Global.sLoc, V.Local.sSQL)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim, <>, "")
+	V.Passed.000026.Set(V.Local.sRet.Trim)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Global.bQuoteLines,=,False)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "LOCK", 0)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.LoadInvSC.End
+
+Program.Sub.SCBrowser.Start
+F.Intrinsic.Control.Try
+V.Local.iCnt.Declare(Long)
+V.Local.iWidths.Declare(Long)
+V.Local.sRet.Declare(String)
+V.Local.sRet2.Declare(String)
+V.Local.sTitles.Declare(String)
+V.Local.sSortCode.Declare(String)
+V.Local.sDesc.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'set the column titles 
+F.Intrinsic.String.Split("Sort Code*!*Description", "*!*", V.Local.sTitles)
+'set the column widths
+F.Intrinsic.String.Split("750*!*1500", "*!*", V.Local.iWidths)
+
+'query v_INV_SORT to get the sort codes and their descriptions
+F.Intrinsic.UI.Browser("Select a Sort Code", "con", "SELECT SORT_CODE,DESCR FROM V_INV_SORT ORDER BY SORT_CODE", V.Local.sTitles, V.Local.iWidths, V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*", V.Local.sRet)
+	V.Passed.000026.Set(V.Local.sRet(0).Trim)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.SCBrowser.End
+
+Program.Sub.ProcessOrderLine.Start
+F.Intrinsic.Control.Try
+V.Local.bFileExists.Declare(Boolean)
+V.Local.fPct.Declare(Float)
+V.Local.fFrtPrice.Declare(Float)
+V.Local.fPrice.Declare(Float)
+V.Local.fMarginPct.Declare(Float)
+V.Local.fMargin.Declare(Float)
+V.Local.fTotalPrice.Declare(Float)
+V.Local.fCost.Declare(Float)
+V.Local.fUpchargePct.Declare(Float)
+V.Local.iRet.Declare(Long)
+V.Local.sPricingType.Declare(String)
+V.Local.sFrtZone.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sUser3.Declare(String)
+V.Local.sPart.Declare(String)
+V.Local.sRev.Declare(String)
+V.Local.sLoc.Declare(String)
+V.Local.sFullPart.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sSortCode.Declare(String)
+V.Local.sFQP.Declare(String)
+V.Local.fUpcharge.Declare(Float)
+V.Local.sOrderNo.Declare(String)
+V.Local.sOrderLine.Declare(String)
+V.Local.sRet2.Declare(String)
+
+
+V.Local.sOrderNo.Set(V.Passed.000060)
+F.Intrinsic.String.LPad(V.Local.sOrderNo, "0", 7, V.Local.sOrderNo)
+V.Local.sOrderLine.Set(V.Passed.000051)
+F.Intrinsic.String.LPad(V.Local.sOrderLine, "0",3, V.Local.sOrderLine)
+F.Intrinsic.String.RPad(V.Local.sOrderLine, "0", 4, V.Local.sOrderLine)
+V.Local.sSortCode.Set(V.Passed.000026)
+
+
+F.Intrinsic.String.Build("{0}\PriceCalc_6526.txt", V.Caller.FilesDir, V.Local.sFQP)
+F.Intrinsic.File.Exists(V.Local.sFQP, V.Local.bFileExists)
+F.Intrinsic.Control.If(V.Local.bFileExists,=,False)
+	'check to see if the price has been locked into manual pricing - looking for 'quoted price'
+	V.Local.sPricingType.Set(V.Passed.000010)
+	F.Intrinsic.Control.If(V.Local.sPricingType.Trim,=, "OVRD Scripted Price")
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.EndIf
+
+	'check to make sure the user selected a freight zone - user 2 field
+	V.Local.sFrtZone.Set(V.Passed.000080)
+	F.Intrinsic.Control.If(V.Local.sFrtZone.Trim,=,"")
+		F.Intrinsic.UI.Msgbox("A Freight Zone has not been selected. Would you like to continue without a Freight Zone?", "Warning", 4, V.Local.iRet)
+		F.Intrinsic.Control.If(V.Local.iRet,=,6)
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000037, "LOCK", 0)
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.ElseIf(V.Local.iRet,=,7)
+			V.Passed.777777.Set(1)
+		'	V.Passed.CANCEL.Set(1)
+			F.Intrinsic.Control.ExitSub
+		'	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000037, "LOCK", 1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+
+	V.Local.sSortCode.Set(V.Passed.000026)
+	V.Local.sFrtZone.Set(v.Passed.000080)
+	'use sort code and freight zone to look up freight percentage
+	F.Intrinsic.String.Build("SELECT PERCENTAGE FROM GCG_6526_FRT_ZONE WHERE UCASE(SORT_CODE) = '{0}' AND UCASE(FREIGHT_ZONE) = '{1}'", V.Local.sSortCode, V.Local.sFrtZone.UCase, V.Local.sSQL)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+		'set the part, rev and location
+		V.Local.sPart.Set(V.Passed.000052)
+		F.Intrinsic.String.RPad(V.Local.sPart, " ", 17, V.Local.sPart)
+		V.Local.sRev.Set(V.Passed.000053)
+		F.Intrinsic.String.RPad(V.Local.sRev, " ",3, V.Local.sRev)
+		F.Intrinsic.String.Build("{0}{1}", V.Local.sPart, V.Local.sRev, V.Local.sFullPart)
+		V.Local.sLoc.Set(V.Passed.000054)
+
+
+		'query inventory master for the part's price
+		F.Intrinsic.String.Build("SELECT AMT_PRICE FROM V_INVENTORY_MSTR WHERE PART = '{0}' AND LOCATION = '{1}'", V.Local.sFullPart, V.Local.sLoc, V.Local.sSQL)
+		F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet2)
+		F.Intrinsic.Control.If(V.Local.sRet2.Float,<>,0)
+			'check to see if user3 is blank
+			F.Intrinsic.Control.If(V.Passed.000082.Trim,=,"")
+				'set user3 field to price from inventory
+				V.Passed.000082.Set(V.Local.sRet2.Float)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.ElseIf(V.Local.sRet2.F.loat,=,0)
+			'if no price is returned from inventory (because the part might not exist in inventory) populated with the price the user entered for the part
+			F.Intrinsic.Control.If(V.Passed.000082.Trim,=,"")
+				'set user3 field to price set on line
+				V.Passed.000082.Set(V.Passed.000009)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		
+		'check to make sure that user field 4 is blank
+		F.Intrinsic.Control.If(V.Passed.000084,=,"")
+			V.Local.fPct.Set(V.Local.sRet.Float)
+			V.Local.fPrice.Set(V.Passed.000082)
+			F.Intrinsic.Math.Mult(V.Local.fPct, V.Local.fPrice, V.Local.fFrtPrice)
+			V.Passed.000084.Set(V.Local.fFrtPrice)
+	
+			
+			V.Passed.000108.Set(V.Local.fFrtPrice)
+			V.Passed.000002.Set(V.Local.fFrtPrice)
+			V.Passed.000004.Set("Y")
+			v.Passed.000095.Set(V.Local.fFrtPrice)
+
+			
+			'write the sum of the base price and the freight price to the Price Field
+		'	F.Intrinsic.Math.Add(V.Local.fFrtPrice, V.Local.fPrice, V.Local.fTotalPrice)
+			V.Local.fTotalPrice.Set(V.Local.fPrice)
+			'check to see if an upcharge exists
+			F.Intrinsic.Control.If(V.Passed.GAB-CHK-1,=,"Y")
+			
+				V.Local.fUpchargePct.Set(V.Passed.GAB-TEXT-1)
+				v.Local.fUpcharge.Set(V.Passed.GAB-TEXT-2)
+				F.Intrinsic.Math.Add(V.Local.fUpcharge, V.Local.fTotalPrice, V.Local.fTotalPrice)
+				F.Intrinsic.Math.Add(V.Local.fPrice, V.Local.fUpcharge, V.Local.fPrice)
+				V.Passed.000009.Set(V.Local.fTotalPrice)
+				'logic to save the upcharge amount and percentage to a custom table
+				'query the table to see if a record exists. If it does, update it. If it doesn't, add the record
+				F.Intrinsic.String.Build("SELECT * FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+				F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+				'update the record
+					F.Intrinsic.String.Build("UPDATE GCG_6526_OE_UPCHRG SET UPCHRG_PCT = '{0}', TOTAL_UPCHRG = '{1}', CHG_USER = '{2}' WHERE ORDER_NO = '{3}' AND ORDER_LINE = '{4}'", V.Local.fUpchargePct, V.Local.fUpcharge, V.Caller.User, V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+					F.ODBC.Connection!con.Execute(V.Local.sSQL)
+				F.Intrinsic.Control.Else
+				'insert the record
+					F.Intrinsic.String.Build("INSERT INTO GCG_6526_OE_UPCHRG (ORDER_NO, ORDER_LINE, UPCHRG_PCT, TOTAL_UPCHRG, CHG_USER) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.fUpchargePct, V.Local.fUpcharge, V.Caller.User, V.Local.sSQL)
+					F.ODBC.Connection!con.Execute(V.Local.sSQL)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.ElseIf(V.Passed.GAB-CHK-1,=,"N", "AND", V.Passed.GAB-TEXT-1,<>,"")
+		
+			
+				F.Intrinsic.String.Build("SELECT * FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+				F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+					F.Intrinsic.UI.Msgbox("You have deselected the Upcharge checkbox. This will delete the existing Upcharge amount tied to the Order Line. Are you sure you want to continue with removing this Upcharge?", "Warning", 4, V.Local.iRet)
+					F.Intrinsic.Control.If(V.Local.iRet,=,6)
+						F.Intrinsic.Math.Sub(V.Local.fTotalPrice, V.Local.fUpcharge, V.Local.fTotalPrice)
+						F.Intrinsic.Math.Sub(V.Local.fPrice, V.Local.fUpcharge, V.Local.fPrice)
+						F.Intrinsic.String.Build("DELETE FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+						F.ODBC.Connection!con.Execute(V.Local.sSQL)
+						
+						V.Passed.000009.Set(V.Local.fTotalPrice)
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+			
+		'	V.Passed.000009.Set(V.Local.fTotalPrice)
+		
+			'calculate the margin using the base price, the cost field and the upcharge amount if it exists, then write to the margin field
+			V.Local.fCost.Set(V.Passed.000012)
+			F.Intrinsic.Math.Div(V.Local.fCost, V.Local.fPrice, V.Local.fMarginPct)
+			F.Intrinsic.Math.Sub(1, V.Local.fMarginPct, V.Local.fMargin)
+			F.Intrinsic.Math.Mult(V.Local.fMargin, 100, V.Local.fMargin)
+
+		'	V.Passed.000008.Set(V.Local.fMargin)
+			
+
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("A Freight Percentage has not been setup for the selected Sort Code and Freight Zone. Please setup a Freight Percentage Order Entry > Administration > Freight Zone Maintenance (6526) and try again later.", "Error")
+		V.Passed.777777.Set(1)
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.ProcessOrderLine.End
+
+Program.Sub.OELineDelete.Start
+F.Intrinsic.Control.Try
+V.Local.sOrderLine.Declare(String)
+V.Local.sOrderNo.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'set the order number
+V.Local.sOrderNo.Set(V.Passed.000060)
+'format the order number
+F.Intrinsic.String.LPad(V.Local.sOrderNo, "0", 7, V.Local.sOrderNo)
+'set the order line
+V.Local.sOrderLine.Set(V.Passed.000051)
+'format the order line
+F.Intrinsic.String.LPad(V.Local.sOrderLine, "0", 3, V.Local.sOrderLine)
+F.Intrinsic.String.RPad(V.Local.sOrderLine, "0",4, V.Local.sOrderLine)
+
+'query custom order lines upcharge table
+F.Intrinsic.String.Build("SELECT * FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	'build query to delete the upcharge for the order line that was deleted
+	F.Intrinsic.String.Build("DELETE FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+	F.ODBC.Connection!con.Execute(V.Local.sSQL)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.OELineDelete.End
+
+Program.Sub.OEUpchargeCheck.Start
+F.Intrinsic.Control.Try
+V.Local.fUpchargePct.Declare(Float)
+V.Local.fTotUpcharge.Declare(Float)
+V.Local.sOrderNo.Declare(String)
+V.Local.sOrderLine.Declare(String)
+V.Local.sPart.Declare(String)
+V.Local.sRev.Declare(String)
+V.Local.sQuoteNo.Declare(String)
+V.Local.sQuoteLine.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sWonFlag.Declare(String)
+V.Local.sOrigQteLine.Declare(String)
+V.Local.sOrigQte.Declare(String)
+V.Local.sRet2.Declare(String)
+
+'V.passed.000060 = order num
+'v.passed.000051 = line item
+'v.passed.000052 = part number
+'v.passed.000053 = part rev
+'V.passed.gab-chk-1 = custom check box
+'V.passed.gab-text-1 = upcharge pct
+'V.passed.gab-text-2 = total upcharge
+
+'set the passed variables
+V.Local.sOrderLine.Set(V.Passed.000051)
+F.Intrinsic.String.LPad(V.Local.sOrderLine, "0", 3, V.Local.sOrderLine)
+F.Intrinsic.String.RPad(v.Local.sOrderLine, "0", 4, V.Local.sOrderLine)
+V.Local.sOrderNo.Set(V.Passed.000060)
+F.Intrinsic.String.LPad(V.Local.sOrderNo, "0", 7, V.Local.sOrderNo)
+V.Local.sPart.Set(V.Passed.000052)
+V.Local.sRev.Set(V.Passed.000053)
+
+'check to see if the part information has been entered
+F.Intrinsic.Control.If(V.Local.sPart.Trim,<>,"")
+	'check to see if an upcharge already exists for the order number and order line
+	F.Intrinsic.String.Build("SELECT UPCHRG_PCT, TOTAL_UPCHRG FROM GCG_6526_OE_UPCHRG WHERE ORDER_NO = '{0}' AND ORDER_LINE = '{1}'", V.Local.sOrderNo.Trim, V.Local.sOrderLine.Trim, V.Local.sSQL)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	'if it does, set the custom check box and populate the custom text boxes
+		F.Intrinsic.String.Split(V.Local.sRet, "*!*", V.Local.sRet)
+		V.Local.fUpchargePct.Set(V.Local.sRet(0).Float)
+		V.Local.fTotUpcharge.Set(V.Local.sRet(1).Float)
+		V.Passed.GAB-CHK-1.Set("Y")
+		F.Intrinsic.Control.If(V.Local.fUpchargePct,<,1)
+			F.Intrinsic.Math.Mult(V.Local.fUpchargePct,100,V.Local.fUpchargePct)
+		F.Intrinsic.Control.EndIf
+		V.Passed.GAB-TEXT-1.Set(V.Local.fUpchargePct)
+		V.Passed.GAB-TEXT-2.Set(V.Local.fTotUpcharge)
+	F.Intrinsic.Control.Else
+		'if it doesn't, check to see if the order was won from a quote
+		'pull quote number from header if it was - assuming order line number matches the quote line number
+		F.Intrinsic.String.Build("SELECT A.ORDER_WON, A.ORIG_ORDER_LINE, B.QUOTE FROM V_ORDER_LINES A LEFT JOIN V_ORDER_HEADER B ON A.ORDER_NO = B.ORDER_NO WHERE A.ORDER_NO = '{0}' AND A.RECORD_NO = '{1}'", V.Local.sOrderNo, V.Local.sOrderLine, V.Local.sSQL)
+		F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*", V.Local.sRet)
+			V.Local.sWonFlag.Set(V.Local.sRet(0).Trim)
+			V.Local.sOrigQteLine.Set(V.Local.sRet(1).Trim)
+			V.Local.sOrigQte.Set(V.Local.sRet(2).Trim)
+			F.Intrinsic.Control.If(V.Local.sWonFlag.Trim,=,"W")
+				F.Intrinsic.String.Build("SELECT UPCHRG_PCT, TOTAL_UPCHRG FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sOrigQte.Trim, V.Local.sOrigQteLine.Trim, V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet2)
+				F.Intrinsic.Control.If(V.Local.sRet2.Trim,<>,"")
+					F.Intrinsic.String.Split(V.Local.sRet2, "*!*", V.Local.sRet2)
+					V.Local.fUpchargePct.Set(V.Local.sRet2(0).Float)
+					V.Local.fTotUpcharge.Set(V.Local.sRet2(1).Float)
+					V.Passed.GAB-CHK-1.Set("Y")
+					F.Intrinsic.Control.If(V.Local.fUpchargePct,<,1)
+						F.Intrinsic.Math.Mult(V.Local.fUpchargePct,100,V.Local.fUpchargePct)
+					F.Intrinsic.Control.EndIf
+					V.Passed.GAB-TEXT-1.Set(V.Local.fUpchargePct)
+					V.Passed.GAB-TEXT-2.Set(V.Local.fTotUpcharge)
+				F.Intrinsic.Control.Else
+					V.Passed.GAB-CHK-1.Set("N")
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		V.Passed.GAB-CHK-1.Set("N")
+		V.Global.bUpchargeExists.Set(False)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	V.Passed.GAB-CHK-1.Set("N")
+	
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "HIDE", 0)
+	
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-2, "HIDE", 1)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1, "HIDE", 1)
+	V.Passed.GAB-TEXT-1.Set("")
+	
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-3, "HIDE", 1)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-2, "HIDE", 1)
+	V.Passed.GAB-TEXT-2.Set("")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-CHK-1, "LOCK", 0)
+F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1, "LOCK", 0)
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.OEUpchargeCheck.End
+
+Program.Sub.ProcessQuoteLine.Start
+F.Intrinsic.Control.Try
+V.Local.bFileExists.Declare(Boolean)
+V.Local.bUpchargeFileExists.Declare(Boolean)
+V.Local.fPct.Declare(Float)
+V.Local.fFrtPrice.Declare(Float)
+V.Local.fPrice.Declare(Float)
+V.Local.fMarginPct.Declare(Float)
+V.Local.fMargin.Declare(Float)
+V.Local.fTotalPrice.Declare(Float)
+V.Local.fCost.Declare(Float)
+V.Local.iRet.Declare(Long)
+V.Local.sPricingType.Declare(String)
+V.Local.sFrtZone.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sUser3.Declare(String)
+V.Local.sPart.Declare(String)
+V.Local.sRev.Declare(String)
+V.Local.sLoc.Declare(String)
+V.Local.sFullPart.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sSortCode.Declare(String)
+V.Local.sUpchargeAmt.Declare(String)
+V.Local.fUpchargeAmt.Declare(Float)
+V.Local.sQuoteLine.Declare(String)
+V.Local.sQuoteNo.Declare(String)
+V.Local.sFQP.Declare(String)
+v.Local.sRet2.Declare(String)
+
+
+V.Local.sSortCode.Set(V.Passed.000026)
+F.Intrinsic.String.Build("{0}\Quote_PriceCalc_6526.txt", V.Caller.FilesDir, V.Local.sFQP)
+F.Intrinsic.File.Exists(V.Local.sFQP, V.Local.bFileExists)
+F.Intrinsic.Control.If(V.Local.bFileExists,=,False)
+	'check to see if the price has been locked into manual pricing - looking for 'quoted price'
+'	V.Local.sPricingType.Set(V.Passed.000010)
+'	F.Intrinsic.Control.If(V.Local.sPricingType.Trim,=, "Quoted Price")
+'		F.Intrinsic.Control.ExitSub
+'	F.Intrinsic.Control.EndIf
+
+	'check to make sure the user selected a freight zone - user 2 field
+	V.Local.sFrtZone.Set(V.Passed.000023)
+	F.Intrinsic.Control.If(V.Local.sFrtZone.Trim,=,"")
+		F.Intrinsic.UI.Msgbox("A Freight Zone has not been selected. Would you like to continue without a Freight Zone?", "Warning", 4, V.Local.iRet)
+		F.Intrinsic.Control.If(V.Local.iRet,=,6)
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000037, "LOCK", 0)
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.ElseIf(V.Local.iRet,=,7)
+			
+			V.Passed.777777.Set(1)
+		'	V.Passed.CANCEL.Set(1)
+			
+			F.Intrinsic.Control.ExitSub
+	'		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000037, "LOCK", 1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+
+	V.Local.sSortCode.Set(V.Passed.000026)
+	V.Local.sFrtZone.Set(v.Passed.000023)
+	
+	'use sort code and freight zone to look up freight percentage
+	F.Intrinsic.String.Build("SELECT PERCENTAGE FROM GCG_6526_FRT_ZONE WHERE UCASE(SORT_CODE) = '{0}' AND UCASE(FREIGHT_ZONE) = '{1}'", V.Local.sSortCode, V.Local.sFrtZone.UCase, V.Local.sSQL)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+		'set the part, rev and location
+		V.Local.sPart.Set(V.Passed.000052)
+		F.Intrinsic.String.RPad(V.Local.sPart, " ", 17, V.Local.sPart)
+		V.Local.sRev.Set(V.Passed.000053)
+		F.Intrinsic.String.RPad(V.Local.sRev, " ",3, V.Local.sRev)
+		F.Intrinsic.String.Build("{0}{1}", V.Local.sPart, V.Local.sRev, V.Local.sFullPart)
+		V.Local.sLoc.Set(V.Passed.000054)
+
+		'query inventory master for the part's price
+		F.Intrinsic.String.Build("SELECT AMT_PRICE FROM V_INVENTORY_MSTR WHERE PART = '{0}' AND LOCATION = '{1}'", V.Local.sFullPart, V.Local.sLoc, V.Local.sSQL)
+		F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet2)
+		F.Intrinsic.Control.If(V.Local.sRet2.Float,<>,0)
+			'check to see if user3 is blank
+			F.Intrinsic.Control.If(V.Passed.000015.Trim,=,"")
+				'set user3 field to price from inventory
+				V.Passed.000015.Set(V.Local.sRet2.Float)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.ElseIf(V.Local.sRet2.Float,=,0)
+			F.Intrinsic.Control.If(V.Passed.000015.Trim,=,"")
+				'set user3 field to price the user entered on the line
+				V.Passed.000015.Set(V.Passed.000009)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		
+		'check to make sure that user field 4 is blank
+		F.Intrinsic.Control.If(V.Passed.000017,=,"")
+	
+			V.Local.fPct.Set(V.Local.sRet.Float)
+			V.Local.fPrice.Set(V.Passed.000015)
+			F.Intrinsic.Math.Mult(V.Local.fPct, V.Local.fPrice, V.Local.fFrtPrice)
+			V.Passed.000017.Set(V.Local.fFrtPrice)
+			
+			'write the sum of the base price and the freight price to the Price Field
+		'	F.Intrinsic.Math.Add(V.Local.fFrtPrice, V.Local.fPrice, V.Local.fTotalPrice)
+			'write the freight price to frt-per-piece and curr-frt-per-piece passed variables
+			V.Passed.000002.Set(V.Local.fFrtPrice)
+			V.Passed.000138.Set(V.Local.fFrtPrice)
+			V.Passed.000004.Set("Y")
+			v.Passed.000133.Set(V.Local.fFrtPrice)
+			
+			V.Local.fTotalPrice.Set(V.Local.fPrice)
+			
+			'set the quote number and quote line variables
+			V.Local.sQuoteNo.Set(V.Passed.000060)
+			F.Intrinsic.String.LPad(V.Local.sQuoteNo, "0", 7, V.Local.sQuoteNo)
+			V.Local.sQuoteLine.Set(V.Passed.000051)
+			F.Intrinsic.String.LPad(V.Local.sQuoteLine, "0", 3, V.Local.sQuoteLine)
+			F.Intrinsic.String.RPad(V.Local.sQuoteLine, "0", 4, V.Local.sQuoteLine)
+			'check to see if the upcharge record exists
+
+			
+			F.Intrinsic.String.Build("SELECT TOTAL_UPCHRG FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sQuoteNo.Trim, V.Local.sQuoteLine.Trim, V.Local.sSQL)
+			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+				F.Intrinsic.Control.If(V.Local.sRet.Long,<>,0)
+					V.Local.sUpchargeAmt.Set(V.Local.sRet.Trim)
+					V.Local.fUpchargeAmt.Set(V.Local.sUpchargeAmt.Float)
+					F.Intrinsic.Math.Add(V.Local.fTotalPrice, v.Local.fUpchargeAmt, V.Local.fTotalPrice)
+					F.Intrinsic.Math.Add(V.Local.fPrice, V.Local.fUpchargeAmt, V.Local.fPrice)
+					V.Passed.000009.Set(V.Local.fTotalPrice)
+					V.Passed.000128.Set(V.Local.fTotalPrice)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+			
+			'V.Passed.000009.Set(V.Local.fTotalPrice)
+		
+			'calculate the margine using the base price and the cost field, then write to the margin field
+			'V.Local.fCost.Set(V.Passed.000012)
+		'	F.Intrinsic.Math.Div(V.Local.fCost, V.Local.fPrice, V.Local.fMarginPct)
+		'	F.Intrinsic.Math.Sub(1, V.Local.fMarginPct, V.Local.fMargin)
+		'	F.Intrinsic.Math.Mult(V.Local.fMargin, 100, V.Local.fMargin)
+		'	V.Passed.000008.Set(V.Local.fMargin)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("A Freight Percentage has not been setup for the selected Sort Code and Freight Zone. Please setup a Freight Percentage Order Entry > Administration > Freight Zone Maintenance (6526) and try again later.", "Error")
+		V.Passed.777777.Set(1)
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.ProcessQuoteLine.End
+
+Program.Sub.LoadGrid.Start
+F.Intrinsic.Control.Try
+
+'check to see if the datatable exists. If it does, close it
+F.Intrinsic.Control.If(V.DataTable.dtFrtZone.Exists)
+	F.Data.DataTable.Close("dtFrtZone")
+F.Intrinsic.Control.EndIf
+
+'create the datatable
+F.Data.DataTable.Create("dtFrtZone", True)
+'add the columns
+F.Data.DataTable.AddColumn("dtFrtZone", "SORT_CODE", "STRING")
+F.Data.DataTable.AddColumn("dtFrtZone", "FREIGHT_ZONE", "STRING")
+F.Data.DataTable.AddColumn("dtFrtZone", "PERCENTAGE", "FLOAT")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.LoadGrid.End
+
+Program.Sub.FormatGrid.Start
+F.Intrinsic.Control.Try
+V.Local.sDefault.Declare(String)
+V.Local.sGV.Declare(String)
+V.Local.sProperty.Declare(String)
+V.Local.sValues.Declare(String)
+
+Gui.f_Main.GsGcZones.AddGridviewFromDatatable("gvFrtZone", "dtFrtZone")
+V.Local.sGV.Set("gvFrtZone")
+Gui.f_Main.GsGcZones.SetGridviewProperty(V.Local.sGV, "MultiSelect", False)
+Gui.f_Main.GsGcZones.SetGridviewProperty(v.Local.sGV, "AllowFilter", False)
+Gui.f_Main.GsGcZones.SetGridviewProperty(v.Local.sGV, "OptionsViewShowGroupPanel", False)
+Gui.f_Main.GsGcZones.SetGridviewProperty(v.Local.sGV, "EnableAppearanceOddRow", False)
+Gui.f_Main.GsGcZones.SetGridviewProperty(v.Local.sGV, "OptionsViewColumnAutoWidth", True)
+Gui.f_Main.GsGcZones.SetGridviewProperty(v.Local.sGV, "AllowColumnResizing", True)
+Gui.f_Main.GsGcZones.SetGridviewProperty(v.Local.sGV, "AllowColumnMoving", True)
+Gui.f_Main.GsGcZones.SetGridviewProperty(V.Local.sGV, "AllowDeleteRows", True)
+
+V.Local.sProperty.Set("Caption")
+V.Local.sDefault.Set(" ")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "SORT_CODE", V.Local.sProperty, "Sort Code")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "FREIGHT_ZONE", V.Local.sProperty, "Freight Zone")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "PERCENTAGE", V.Local.sProperty, "Percentage")
+
+V.Local.sProperty.Set("AllowEdit")
+V.Local.sDefault.Set("False")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "SORT_CODE", V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "FREIGHT_ZONE", V.Local.sProperty, True)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "PERCENTAGE", V.Local.sProperty, True)
+
+V.Local.sProperty.Set("ReadOnly")
+V.Local.sDefault.Set("True")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "SORT_CODE", V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "FREIGHT_ZONE", V.Local.sProperty,False)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "PERCENTAGE", V.Local.sProperty, False)
+
+V.Local.sProperty.Set("HeaderFontBold")
+V.Local.sDefault.Set("True")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "SORT_CODE", V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "FREIGHT_ZONE", V.Local.sProperty,V.Local.sDefault)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "PERCENTAGE", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sProperty.Set("HeaderHAlignment")
+V.Local.sDefault.Set("Center")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "SORT_CODE", V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "FREIGHT_ZONE", V.Local.sProperty,V.Local.sDefault)
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "PERCENTAGE", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sProperty.Set("DisplayCustomNumeric")
+V.Local.sDefault.Set("#,###,###,##0.00%")
+Gui.f_Main.GsGcZones.SetColumnProperty(V.Local.sGV, "PERCENTAGE", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sValues.Set("Zone 1*!*Zone 2*!*Zone 3*!*Zone 4*!*Zone 5")
+Gui.f_Main.GsGcZones.ColumnEdit(V.Local.sGV, "FREIGHT_ZONE", "Dropdownlist", V.Local.sValues)
+
+
+
+Gui.f_Main.GsGcZones.MainView(V.Local.sGV)
+
+
+F.Data.DataTable.AddRowChangedEventHandler("dtFrtZone", "RowRemoved")
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.FormatGrid.End
+
+Program.Sub.cmdSCBrowser_Click.Start
+F.Intrinsic.Control.Try
+V.Local.iCnt.Declare(Long)
+V.Local.iWidths.Declare(Long)
+V.Local.sRet.Declare(String)
+V.Local.sRet2.Declare(String)
+V.Local.sTitles.Declare(String)
+V.Local.sSortCode.Declare(String)
+V.Local.sDesc.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'set the column titles 
+F.Intrinsic.String.Split("Sort Code*!*Description", "*!*", V.Local.sTitles)
+'set the column widths
+F.Intrinsic.String.Split("750*!*1500", "*!*", V.Local.iWidths)
+
+'query v_INV_SORT to get the sort codes and their descriptions
+F.Intrinsic.UI.Browser("Select a Sort Code", "con", "SELECT SORT_CODE,DESCR FROM V_INV_SORT ORDER BY SORT_CODE", V.Local.sTitles, V.Local.iWidths, V.Local.sRet)
+
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*", V.Local.sRet)
+	Gui.f_Main.txtSortCode.Text(V.Local.sRet(0).Trim)
+	Gui.f_Main.txtDesc.Text(V.Local.sRet(1).Trim)
+	
+	F.Intrinsic.Control.BlockEvents
+	
+	F.Intrinsic.Control.If(V.DataTable.dtFrtZone.RowCount--,>,-1)
+		F.Data.DataTable.DeleteRow("dtFrtZone")
+	F.Intrinsic.Control.EndIf
+	
+	'query custom table to pull in all of the sort codes that have been setup
+	F.Intrinsic.String.Build("SELECT SORT_CODE, FREIGHT_ZONE, PERCENTAGE FROM GCG_6526_FRT_ZONE WHERE SORT_CODE = '{0}'", V.Local.sRet(0).Trim, V.Local.sSQL)
+	F.Intrinsic.Control.If(V.DataTable.dtTemp.Exists)
+		F.Data.DataTable.Close("dtTemp")
+	F.Intrinsic.Control.EndIf
+	F.Data.DataTable.CreateFromSQL("dtTemp", "con", V.Local.sSQL, True)
+	F.Intrinsic.Control.If(V.DataTable.dtTemp.RowCount--,>,-1)
+		F.Intrinsic.Control.For(V.Local.iCnt, 0, V.DataTable.dtTemp.RowCount--,1)
+			F.Data.DataTable.AddRow("dtFrtZone", "SORT_CODE", V.DataTable.dtTemp(V.Local.iCnt).SORT_CODE!FieldValTrim, "FREIGHT_ZONE", V.DataTable.dtTemp(V.Local.iCnt).FREIGHT_ZONE!FieldValTrim, "PERCENTAGE", V.DataTable.dtTemp(V.Local.iCnt).PERCENTAGE!FieldValFloat)
+		F.Intrinsic.Control.Next(V.Local.iCnt)
+	F.Intrinsic.Control.EndIf
+	
+	F.Data.DataTable.AcceptChanges("dtFrtZone")
+	F.Intrinsic.Control.UnBlockEvents
+	
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("No Sort Code was Selected!")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdSCBrowser_Click.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.Try
+V.Local.fPct.Declare(Float)
+V.Local.sSortCode.Declare(String)
+V.Local.sZone.Declare(String)
+
+'set the variables with the information from the screen
+V.Local.sSortCode.Set(V.Screen.f_Main!txtSortCode.Text)
+V.Local.sZone.Set(V.Screen.f_Main!ddlFrtZone.Value)
+V.Local.fPct.Set(V.Screen.f_Main!txtPct.Text)
+
+'check to make sure none of the fields are blank
+F.Intrinsic.Control.If(V.Local.sSortCode.Trim,<>,"")
+	F.Intrinsic.Control.If(V.Local.sZone.Trim,<>,"")
+		F.Intrinsic.Control.If(V.Local.fPct,=,0)
+			F.Intrinsic.UI.Msgbox("You must enter a Percentage before you can continue!", "Required Field")
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("You must select a Freight Zone before you can continue!", "Required Field")
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("You must select a Sort Code before you can continue!", "Required Field")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Local.fPct,>,1)
+	F.Intrinsic.Math.Div(V.Local.fPct,100, V.Local.fPct)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.BlockEvents
+'move the information into the grid
+F.Data.DataTable.AddRow("dtFrtZone", "SORT_CODE", V.Local.sSortCode.Trim, "FREIGHT_ZONE", V.Local.sZone.Trim, "PERCENTAGE", V.Local.fPct)
+F.Intrinsic.Control.UnBlockEvents
+Gui.f_Main.txtSortCode.Text("")
+Gui.f_Main.txtDesc.Text("")
+Gui.f_Main.txtPct.Text("")
+Gui.f_Main.ddlFrtZone.Text(" ")
+'save the data in the grid to custom database
+F.Data.DataTable.SaveToDB("dtFrtZone", "con", "GCG_6526_FRT_ZONE", "SORT_CODE*!*FREIGHT_ZONE", 256)
+'sort code, zone, percentage
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.GsGcZones_CellValueChanged.Start
+F.Intrinsic.Control.Try
+V.Local.fPct.Declare(Float)
+V.Local.sSortCode.Declare(String)
+V.Local.sFrtZone.Declare(String)
+V.Local.sSQL.Declare(String)
+
+F.Intrinsic.Control.BlockEvents
+
+F.Intrinsic.Control.SelectCase(V.Args.Column)
+	F.Intrinsic.Control.Case("FREIGHT_ZONE")
+		Gui.f_Main.GsGcZones.GetCellValueByColumnName("gvFrtZone", "SORT_CODE", V.Args.RowIndex, V.Local.sSortCode)
+		Gui.f_Main.GsGcZones.GetCellValueByColumnName("gvFrtZone", "FREIGHT_ZONE", V.Args.RowIndex, V.Local.sFrtZone)
+		Gui.f_Main.GsGcZones.GetCellValueByColumnName("gvFrtZone", "PERCENTAGE", V.Args.RowIndex, V.Local.fPct)
+	
+		F.Intrinsic.String.Build("UPDATE GCG_6526_FRT_ZONE SET FREIGHT_ZONE = '{0}' WHERE SORT_CODE = '{1}' AND PERCENTAGE = '{2}'", V.Local.sFrtZone.Trim, V.Local.sSortCode.Trim, V.Local.fPct, V.Local.sSQL)
+		F.ODBC.Connection!con.Execute(v.Local.sSQL)
+	F.Intrinsic.Control.Case("PERCENTAGE")
+		Gui.f_Main.GsGcZones.GetCellValueByColumnName("gvFrtZone", "SORT_CODE", V.Args.RowIndex, V.Local.sSortCode)
+		Gui.f_Main.GsGcZones.GetCellValueByColumnName("gvFrtZone", "FREIGHT_ZONE", V.Args.RowIndex, V.Local.sFrtZone)
+		Gui.f_Main.GsGcZones.GetCellValueByColumnName("gvFrtZone", "PERCENTAGE", V.Args.RowIndex, V.Local.fPct)
+		
+		F.Intrinsic.Control.If(V.Local.fPct,>=,1)
+			F.Intrinsic.Math.Div(V.Local.fPct,100, V.Local.fPct)
+		F.Intrinsic.Control.EndIf
+		
+		F.Data.DataTable.SetValue("dtFrtZone", V.Args.RowIndex, "PERCENTAGE", V.Local.fPct)
+		
+		F.Intrinsic.String.Build("UPDATE GCG_6526_FRT_ZONE SET PERCENTAGE = '{0}' WHERE SORT_CODE = '{1}' AND FREIGHT_ZONE = '{2}' ",V.Local.fPct, V.Local.sSortCode.Trim,  V.Local.sFrtZone.Trim,V.Local.sSQL)
+		F.ODBC.Connection!con.Execute(v.Local.sSQL)
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.UnBlockEvents
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.GsGcZones_CellValueChanged.End
+
+Program.Sub.RowRemoved.Start
+F.Intrinsic.Control.Try
+V.Local.iCnt.Declare(Long)
+V.Local.sSortCode.Declare(String)
+V.Local.sFrtZone.Declare(String)
+V.Local.sSQL.Declare(String)
+
+F.Intrinsic.Control.BlockEvents
+
+F.Intrinsic.Control.If(V.Args.RowState,=,8)
+	F.Intrinsic.Control.If(V.DataView.dtFrtZone!dvDeleted.Exists)
+		F.Data.DataView.Close("dtFrtZone", "dvDeleted")
+	F.Intrinsic.Control.EndIf
+	F.Data.DataView.Create("dtFrtZone", "dvDeleted", 8)
+	
+	F.Intrinsic.Control.For(V.Local.iCnt,0, V.DataView.dtFrtZone!dvDeleted.RowCount--,1)
+		V.Local.sFrtZone.Set(V.DataView.dtFrtZone!dvDeleted(V.Local.iCnt).FREIGHT_ZONE!FieldValTrim)
+		V.Local.sSortCode.Set(V.DataView.dtFrtZone!dvDeleted(V.Local.iCnt).SORT_CODE!FieldValTrim)
+		
+		F.Intrinsic.String.Build("DELETE FROM GCG_6526_FRT_ZONE WHERE SORT_CODE = '{0}' AND FREIGHT_ZONE = '{1}'", V.Local.sSortCode.Trim, V.Local.sFrtZone.Trim, V.Local.sSQL)
+		F.ODBC.Connection!con.Execute(V.Local.sSQL)
+	F.Intrinsic.Control.Next(V.Local.iCnt)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.UnBlockEvents
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.RowRemoved.End
+
+Program.Sub.UpchargeCheck.Start
+F.Intrinsic.Control.Try
+V.Local.fUpchgPct.Declare(Float)
+V.Local.fTotalUpchrg.Declare(Float)
+V.Local.sQuoteNo.Declare(String)
+V.Local.sQuoteLine.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sLstUpdate.Declare(String)
+
+'set the quote number
+V.Local.sQuoteNo.Set(V.Passed.000060)
+F.Intrinsic.String.LPad(V.Local.sQuoteNo, "0", 7, V.Local.sQuoteNo)
+
+'set the quote line
+V.Local.sQuoteLine.Set(V.Passed.000051)
+F.Intrinsic.String.LPad(V.Local.sQuoteLine, "0", 3, V.Local.sQuoteLine)
+F.Intrinsic.String.RPad(V.Local.sQuoteLine, "0", 4, V.Local.sQuoteLine)
+
+F.Intrinsic.String.Build("SELECT QUOTE_NO, QUOTE_LINE, UPCHRG_PCT, TOTAL_UPCHRG, CHG_USER FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sQuoteNo, V.Local.sQuoteLine, V.Local.sSQL)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*", v.Local.sRet)
+	V.Local.fUpchgPct.Set(V.Local.sRet(2).Float)
+	V.Local.fTotalUpchrg.Set(V.Local.sRet(3).Float)
+	Gui.f_Upcharge.txtUpPct.Text(V.Local.fUpchgPct)
+	Gui.f_Upcharge.txtUpAmt.Text(V.Local.fTotalUpchrg)
+	Gui.f_Upcharge.txtQteLine.Text(V.Local.sQuoteLine)
+	Gui.f_Upcharge.txtQuoteNo.Text(V.Local.sQuoteNo)
+	F.Intrinsic.String.Build("Last Updated by: {0}", V.Local.sRet(4).Trim, V.Local.sLstUpdate)
+	Gui.f_Upcharge.lblUpdateBy.Caption(V.Local.sLstUpdate)
+F.Intrinsic.Control.Else
+	Gui.f_Upcharge.txtQteLine.Text(V.Local.sQuoteLine)
+	Gui.f_Upcharge.txtQuoteNo.Text(V.Local.sQuoteNo)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.UpchargeCheck.End
+
+Program.Sub.cmdCalculate_Click.Start
+F.Intrinsic.Control.Try
+V.Local.fListPrice.Declare(Float)
+V.Local.fUpcharge.Declare(Float)
+V.Local.fTotalUpcharge.Declare(Float)
+V.Local.sSQL.Declare(String)
+V.Local.sQuoteNo.Declare(String)
+V.Local.sQuoteLine.Declare(String)
+V.Local.sRet.Declare(String)
+
+'set the list price from core varaible
+V.Local.fListPrice.Set(V.Passed.000009)
+'set the upcharge percentage from custom form
+V.Local.fUpcharge.Set(V.Screen.f_Upcharge!txtUpPct.Text)
+
+'check to make sure the user didn't enter a whole number. If they did, divide by 100 to ensure the percentage is a decimal
+F.Intrinsic.Control.If(V.Local.fUpcharge,>=,1)
+	F.Intrinsic.Math.Div(V.Local.fUpcharge, 100, V.Local.fUpcharge)
+F.Intrinsic.Control.EndIf
+
+'multiply the list price by the upcharge percentage to get the total upcharge amount
+F.Intrinsic.Math.Mult(V.Local.fListPrice, V.Local.fUpcharge, V.Local.fTotalUpcharge)
+'set the total upcharge amount on the custom form
+Gui.f_Upcharge.txtUpAmt.Text(V.Local.fTotalUpcharge)
+
+
+'set the quote number
+V.Local.sQuoteNo.Set(V.Passed.000060)
+F.Intrinsic.String.LPad(V.Local.sQuoteNo, "0", 7, V.Local.sQuoteNo)
+
+'set the quote line
+V.Local.sQuoteLine.Set(V.Passed.000051)
+F.Intrinsic.String.LPad(V.Local.sQuoteLine, "0", 3, V.Local.sQuoteLine)
+F.Intrinsic.String.RPad(V.Local.sQuoteLine, "0", 4, V.Local.sQuoteLine)
+
+'check to see if a record already exists in the custom table
+F.Intrinsic.String.Build("SELECT * FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sQuoteNo, V.Local.sQuoteLine, V.Local.sSQL)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	'a record already exists so update it with the new amount
+	F.Intrinsic.String.Build("UPDATE GCG_6526_QTE_UPCHRG SET UPCHRG_PCT = '{0}', TOTAL_UPCHRG = '{1}', CHG_USER = '{2}' WHERE QUOTE_NO = '{3}' AND QUOTE_LINE = '{4}'", V.Local.fUpcharge, V.Local.fTotalUpcharge, V.Caller.User, V.Local.sQuoteNo, V.Local.sQuoteLine, V.Local.sSQL)
+	F.ODBC.Connection!con.Execute(V.Local.sSQL)
+F.Intrinsic.Control.Else
+	'insert a record into the custom table
+	F.Intrinsic.String.Build("INSERT INTO GCG_6526_QTE_UPCHRG (QUOTE_NO, QUOTE_LINE, UPCHRG_PCT, TOTAL_UPCHRG, CHG_USER) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')", V.Local.sQuoteNo.Trim, V.Local.sQuoteLine.Trim, V.Local.fUpcharge, V.Local.fTotalUpcharge, V.Caller.User, V.Local.sSQL)
+	F.ODBC.Connection!con.Execute(V.Local.sSQL)
+F.Intrinsic.Control.EndIf
+
+V.Global.bSaved.Set(True)
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdCalculate_Click.End
+
+Program.Sub.cmdCancel_Click.Start
+F.Intrinsic.Control.Try
+V.Local.iRet.Declare(Long)
+
+F.Intrinsic.Control.If(V.Global.bSaved,=,False)
+	F.Intrinsic.UI.Msgbox("Are you sure you want to cancel? Your Upcharge will not be saved.", "Warning",4, V.Local.iRet)
+	F.Intrinsic.Control.If(v.Local.iRet,=,6)
+		F.Intrinsic.Control.CallSub(F_Main_Unload)
+	F.Intrinsic.Control.ElseIf(V.Local.iRet,=,7)
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.ElseIf(V.Global.bSaved,=,True)
+	F.Intrinsic.Control.CallSub(F_Main_Unload)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdCancel_Click.End
+
+Program.Sub.DeleteQteUpchrg.Start
+F.Intrinsic.Control.Try
+V.Local.sQteNo.Declare(String)
+V.Local.sQteLine.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'set the quote number
+V.Local.sQteNo.Set(V.Passed.000060)
+'format the quote number
+F.Intrinsic.String.LPad(V.Local.sQteNo, "0",7, V.Local.sQteNo)
+V.Local.sQteLine.Set(V.Passed.000051)
+'format the quote line
+F.Intrinsic.String.LPad(V.Local.sQteLine, "0", 3, V.Local.sQteLine)
+F.Intrinsic.String.RPad(V.Local.sQteLine, "0",4, v.Local.sQteLine)
+
+'build query
+F.Intrinsic.String.Build("SELECT * FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sQteNo.Trim, V.Local.sQteLine.Trim, V.Local.sSQL)
+'query the custom table
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	'build string to delete record with the line that's deleted
+	F.Intrinsic.String.Build("DELETE FROM GCG_6526_QTE_UPCHRG WHERE QUOTE_NO = '{0}' AND QUOTE_LINE = '{1}'", V.Local.sQteNo.Trim, V.Local.sQteLine.Trim, V.Local.sSQL)
+	'execute query
+	F.ODBC.Connection!con.Execute(V.Local.sSQL)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.DeleteQteUpchrg.End
+
+Program.Sub.F_Main_Unload.Start
+F.Intrinsic.Control.Try
+V.Local.bFileExists.Declare(Boolean)
+V.Local.sFQP.Declare(String)
+
+F.Intrinsic.Control.If(V.Global.sLastRun.Trim,=,"Y")
+	F.Intrinsic.String.Build("{0}\PriceCalc_6526.txt", V.Caller.FilesDir, V.Local.sFQP)
+	F.Intrinsic.File.Exists(V.Local.sFQP, V.Local.bFileExists)
+	F.Intrinsic.Control.If(V.Local.bFileExists,=,True)
+		F.Intrinsic.File.DeleteFile(V.Local.sFQP)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.String.Build("{0}\Quote_PriceCalc_6526.txt", V.Caller.FilesDir, V.Local.sFQP)
+	F.Intrinsic.File.Exists(V.Local.sFQP, V.Local.bFileExists)
+	F.Intrinsic.Control.If(V.Local.bFileExists,=,True)
+		F.Intrinsic.File.DeleteFile(V.Local.sFQP)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+'close the connection
+F.ODBC.Connection!con.Close
+
+'end the script
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.F_Main_Unload.End
+
+Program.Sub.ErrorMessage.Start
+'basic error message for replacing catch block
+'this is really just for when printing the message and ending program
+'pass error number, error description, current subroutine
+'optional callback sub, this will be called before ending
+'optional unattended parameters, those subs may not exist if not using them but won't be called
+F.Intrinsic.Control.Try
+
+V.Local.iError.Declare(Long)
+V.Local.sErrorDescription.Declare(String)
+V.Local.sSubroutine.Declare(String)
+V.Local.sError.Declare(String)
+V.Local.bExists.Declare(Boolean)
+V.Local.sCallback.Declare(String)
+
+V.Local.iError.Set(V.Args.ErrorNumber)
+V.Local.sErrorDescription.Set(V.Args.ErrorDescription)
+V.Local.sSubroutine.Set(V.Args.Subroutine)
+
+'make sure we aren't in an error loop
+F.Intrinsic.Control.If(V.Global.bError)
+	F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndIf
+V.Global.bError.Set(True)
+
+F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}", V.Caller.ScriptFile, V.Ambient.Newline, V.Local.sSubroutine, V.Local.iError, V.Local.sErrorDescription, V.Ambient.GABVersion, V.Local.sError)
+
+F.Intrinsic.Variable.ArgExists("UNATTENDED", V.Local.bExists)
+F.Intrinsic.Control.If(V.Local.bExists)
+	F.Intrinsic.Control.If(V.Args.UNATTENDED)
+		F.Intrinsic.Control.CallSub(UnattendedErrorMessage, "MESSAGE", V.Local.sError, "PROJECT", V.Args.PROJECT, "PROJECTTITLE", V.Args.PROJECTTITLE)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Variable.ArgExists("Callback", V.Local.bExists)
+F.Intrinsic.Control.If(V.Local.bExists)
+	V.Local.sCallback.Set(V.Args.Callback.Trim)
+	F.Intrinsic.Control.CallSub(V.Local.sCallback)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Caller.ScriptFile,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndTry
+Program.Sub.ErrorMessage.End
+
+Program.Sub.Comments.Start
+${$5$}$2.2020.1.105$}$1
+${$6$}$acollins$}$20220302160828625$}$h98hERc2yV72q0GaUGlwSaoK/aefTdVk/XotSp2jZHhhfvR9/D+mITiRMsi1e1AGBVFZ62o/qy7OFNq5sABSgw==
+Program.Sub.Comments.End
