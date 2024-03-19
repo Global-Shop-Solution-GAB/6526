@@ -1,0 +1,689 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.f_Main..Create(BaseForm)
+Gui.f_Main..Caption("Freight Journal Entry (6526)")
+Gui.f_Main..Size(326,388)
+Gui.f_Main..MinX(0)
+Gui.f_Main..MinY(0)
+Gui.f_Main..Position(0,0)
+Gui.f_Main..AlwaysOnTop(False)
+Gui.f_Main..FontName("Tahoma")
+Gui.f_Main..FontSize(8.25)
+Gui.f_Main..ControlBox(True)
+Gui.f_Main..MaxButton(False)
+Gui.f_Main..MinButton(True)
+Gui.f_Main..MousePointer(0)
+Gui.f_Main..Moveable(True)
+Gui.f_Main..Sizeable(False)
+Gui.f_Main..ShowInTaskBar(True)
+Gui.f_Main..TitleBar(True)
+Gui.f_Main..ShowCompanyCode(False)
+Gui.f_Main..Event(UnLoad,Cancel)
+Gui.f_Main.GsGcChart.Create(GsGridControl)
+Gui.f_Main.GsGcChart.Enabled(True)
+Gui.f_Main.GsGcChart.Visible(True)
+Gui.f_Main.GsGcChart.Zorder(0)
+Gui.f_Main.GsGcChart.Size(320,316)
+Gui.f_Main.GsGcChart.Position(2,38)
+Gui.f_Main.GsGcChart.Dock(0)
+Gui.f_Main.cmdApprove.Create(Button)
+Gui.f_Main.cmdApprove.Enabled(True)
+Gui.f_Main.cmdApprove.Visible(True)
+Gui.f_Main.cmdApprove.Zorder(0)
+Gui.f_Main.cmdApprove.Size(75,23)
+Gui.f_Main.cmdApprove.Position(245,6)
+Gui.f_Main.cmdApprove.Caption("Approve")
+Gui.f_Main.cmdApprove.FontName("Tahoma")
+Gui.f_Main.cmdApprove.FontSize(8.25)
+Gui.f_Main.cmdApprove.Event(Click,cmdApprove_Click)
+Gui.f_Main.lblFreight.Create(Label,"Freight GL Account:",True,95,13,0,6,12,True,0,"Tahoma",8.25,,0,0)
+Gui.f_Main.lblFreight.BorderStyle(0)
+Gui.f_Main.txtFreightGL.Create(TextBox,"",True,100,20,0,104,8,True,0,"Tahoma",8.25,,1)
+Gui.f_Main.txtFreightGL.Locked(True)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+V.Global.bError.Declare(Boolean)
+V.Global.bUnattended.Declare(Boolean)
+V.Global.sInvBatchNum.Declare(String)
+V.Global.sGLUPLOAD.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.Try
+
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+
+'open the company connection
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN, V.Ambient.PUser, V.Ambient.PPass)
+
+F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+	F.Intrinsic.Control.Case(15226)
+	
+	'post invoice batch hook
+		'callsub to load empty grid
+		
+		F.Intrinsic.Control.CallSub(CreateGrid)
+		
+		'callsub to load the data for the grid
+		F.Intrinsic.Control.CallSub(LoadGrid)
+		
+		'callsub to format grid
+		F.Intrinsic.Control.CallSub(FormatGrid)
+		
+		'show form
+		Gui.f_Main..ApplyTheme()
+		Gui.f_Main..Show
+	F.Intrinsic.Control.CaseElse
+		F.Intrinsic.Control.CallSub(F_Main_UnLoad)
+F.Intrinsic.Control.EndSelect
+
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Freight Journal Entry", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.CreateGrid.Start
+F.Intrinsic.Control.Try
+
+'check if the datatable is open
+F.Intrinsic.Control.If(V.DataTable.dtGL.Exists,=,True)
+	F.Data.DataTable.Close("dtGL")
+F.Intrinsic.Control.EndIf
+
+'create the parent datatable
+F.Data.DataTable.Create("dtGL", True)
+F.Data.DataTable.AddColumn("dtGL", "ORDER_NO", "STRING")
+
+'create the child datatable
+F.Data.DataTable.AddTable("dtGL", "Child")
+F.Data.DataTable.AddColumn("dtGL$Child", "GL_ACCT", "String")
+F.Data.DataTable.AddColumn("dtGL$Child", "DEBIT", "Float")
+F.Data.DataTable.AddColumn("dtGL$Child", "CREDIT", "Float")
+F.Data.DataTable.AddColumn("dtGL$Child", "ORDER_NO", "String")
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Freight Journal Entry", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.CreateGrid.End
+
+Program.Sub.FormatGrid.Start
+F.Intrinsic.Control.Try
+V.Local.iCnt.Declare(Long)
+V.Local.sDefault.Declare(String)
+V.Local.sGV.Declare(String)
+V.Local.sProperty.Declare(String)
+
+'create the gridview for the parent datatable
+Gui.f_Main.GsGcChart.AddGridviewFromDatatable("gvGL", "dtGL")
+V.Local.sGV.Set("gvGL")
+'set grid view properties
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "AllowSort", True)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "AllowFilter", False)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "OptionsViewShowGroupPanel", False)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "OptionsViewColumnAutoWidth", True)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "MultiSelect", False)
+
+'set properites for the columns
+V.Local.sProperty.Set("Caption")
+V.Local.sDefault.Set(" ")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO", V.Local.sProperty, "Order")
+
+V.Local.sProperty.Set("HeaderHAlignment")
+V.Local.sDefault.Set("Left")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sProperty.Set("HeaderFontBold")
+V.Local.sDefault.Set("True")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sProperty.Set("AllowEdit")
+V.Local.sDefault.Set("False")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sProperty.Set("ReadOnly")
+V.Local.sDefault.Set("True")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO", V.Local.sProperty, V.Local.sDefault)
+
+V.Local.sProperty.Set("MinWidth")
+V.Local.sDefault.Set("150")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO", V.Local.sProperty, V.Local.sDefault)
+
+
+'create gridview for child datatable
+Gui.f_Main.GsGcChart.AddGridviewFromDatatable("gvChild", "dtGL$Child")
+V.Local.sGV.Set("gvChild")
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "AllowSort", False)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "AllowFilter", False)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "OptionsViewShowGroupPanel", False)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "OptionsViewColumnAutoWidth", True)
+Gui.f_Main.GsGcChart.SetGridviewProperty(V.Local.sGV, "MultiSelect", False)
+
+'set column properties for child grid
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO","Visible", False)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT","Visible", True)
+
+V.Local.sProperty.Set("Caption")
+V.Local.sDefault.Set(" ")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO",V.Local.sProperty,"Order")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty,"Debit")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty,"Credit")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT",V.Local.sProperty,"GL Account")
+
+V.Local.sProperty.Set("HeaderFontBold")
+V.Local.sDefault.Set("True")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT",V.Local.sProperty,V.Local.sDefault)
+
+V.Local.sProperty.Set("HeaderBackColor")
+V.Local.sDefault.Set("Green")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT",V.Local.sProperty,V.Local.sDefault)
+
+V.Local.sProperty.Set("HeaderForeColor")
+V.Local.sDefault.Set("White")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT",V.Local.sProperty,V.Local.sDefault)
+
+V.Local.sProperty.Set("AllowEdit")
+V.Local.sDefault.Set("False")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT",V.Local.sProperty,V.Local.sDefault)
+
+V.Local.sProperty.Set("ReadOnly")
+V.Local.sDefault.Set("True")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "ORDER_NO",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty, V.Local.sDefault)
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "GL_ACCT",V.Local.sProperty,V.Local.sDefault)
+
+V.Local.sProperty.Set("DisplayCustomNumeric")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "DEBIT",V.Local.sProperty,"$#,###,###,##0.00")
+Gui.f_Main.GsGcChart.SetColumnProperty(V.Local.sGV, "CREDIT",V.Local.sProperty,"$#,###,###,##0.00")
+
+F.Intrinsic.Control.If(V.DataTable.dtGL.RowCount--,>,-1)
+	Gui.f_Main.GsGcChart.AddRelation("gvGL", V.Local.sGV, "ORDER_NO", "ORDER_NO", "OrderRel")
+F.Intrinsic.Control.EndIf
+
+Gui.f_Main.GsGcChart.MainView("gvGL")
+
+
+F.Intrinsic.Control.If(V.DataTable.dtGL.RowCount--,>,-1)
+	F.Intrinsic.Control.For(V.Local.iCnt,0,V.DataTable.dtGL.RowCount--,1)
+		Gui.f_Main.GsGcChart.ExpandMasterRow("gvGL", V.Local.iCnt)
+	F.Intrinsic.Control.Next(V.Local.iCnt)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Freight Journal Entry", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.FormatGrid.End
+
+Program.Sub.LoadGrid.Start
+F.Intrinsic.Control.Try
+V.Local.fFreight.Declare(Float)
+V.Local.fFreightPerPiece.Declare(Float)
+V.Local.fQtyShipped.Declare(Float)
+V.Local.fTotFreight.Declare(Float)
+V.Local.iRow.Declare(Long)
+V.Local.iCnt.Declare(Long)
+V.Local.iCnt2.Declare(Long)
+V.Local.iCnt3.Declare(Long)
+V.Local.sOrderNo.Declare(String)
+V.Local.sOrderSuffix.Declare(String)
+V.Local.sRecordNo.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sRet2.Declare(String)
+V.Local.sRet3.Declare(String)
+V.Local.sRet4.Declare(String)
+V.Local.sTemp.Declare(String)
+V.Local.sInvoice.Declare(String)
+v.Local.sBatchNo.Declare(String)
+V.Local.sGLAcct.Declare(String)
+V.Local.sFilter.Declare(String)
+V.Local.sFreightGL.Declare(String)
+
+V.Local.sBatchNo.Set(V.Passed.BATCH.Trim)
+V.Global.sInvBatchNum.Set(V.Local.sBatchNo.Trim)
+
+'query GL _Master to get the freight GL account - double check query criteria to make sure we're pulling the correct freight GL account
+F.ODBC.Connection!con.ExecuteAndReturn("SELECT TEXT1 FROM V_OP_HEADER WHERE  ID = 402462 AND SEQUENCE = 0000", V.Local.sFreightGL)
+F.Intrinsic.Control.If(V.Local.sFreightGL.Trim,<>,"")
+	Gui.f_Main.txtFreightGL.Text(V.Local.sFreightGL.Trim)
+F.Intrinsic.Control.EndIf
+
+'check if temp dt exists
+F.Intrinsic.Control.If(V.DataTable.dtTemp.Exists,=,True)
+	F.Data.DataTable.Close("dtTemp")
+F.Intrinsic.Control.EndIf
+'create temp DT
+F.Data.DataTable.Create("dtTemp", True)
+F.Data.DataTable.AddColumn("dtTemp", "ORDER_NO", "String")
+F.Data.DataTable.AddColumn("dtTemp", "ORDER_SUFFIX", "String")
+F.Data.DataTable.AddColumn("dtTemp", "RECORD_NO", "String")
+F.Data.DataTable.AddColumn("dtTemp", "TOTAL_FREIGHT", "Float")
+F.Data.DataTable.AddColumn("dtTemp", "SALES_GL", "String")
+
+'pull the orders batched from the invoice batch hook
+'load BDF
+F.Intrinsic.BDF.Load("AUX001", "AUX001")
+F.Intrinsic.BDF.ReadRowCount("AUX001",V.Local.iRow)
+F.Intrinsic.Math.Sub(V.Local.iRow,1,V.Local.iRow)
+F.Intrinsic.Control.If(V.Local.iRow,>,-1)
+	'loop through the orders
+	F.Intrinsic.Control.For(V.Local.iCnt,0,V.Local.iRow,1)
+		F.Intrinsic.BDF.ReadRow("AUX001", V.Local.iCnt, V.Local.sTemp)
+		F.Intrinsic.String.Split(V.Local.sTemp, "|~|", V.Local.sRet)
+		V.Local.sInvoice.Set(V.Local.sRet(0).Trim)
+		
+		'query order hist head to get the order number for the invoice
+		F.Intrinsic.String.Build("SELECT ORDER_NO, ORDER_SUFFIX, ORDER_REC, QTY_SHIPPED FROM V_SHIPMENT_LINES WHERE INVOICE = '{0}'", V.Local.sInvoice.Trim, V.Local.sSQL)
+		F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, v.Local.sRet2)
+		F.Intrinsic.String.Split(V.Local.sRet2,"#$#", V.Local.sRet2)
+		F.Intrinsic.Control.For(V.Local.iCnt2, V.Local.sRet2.LBound, V.Local.sRet2.UBound,1)
+			F.Intrinsic.String.Split(V.Local.sRet2(V.Local.iCnt2), "*!*", V.Local.sRet3)
+			V.Local.sOrderNo.Set(V.Local.sRet3(0).Trim)
+			F.Intrinsic.String.LPad(V.Local.sOrderNo, "0", 7, V.Local.sOrderNo)
+			V.Local.sOrderSuffix.Set(v.Local.sRet3(1).Trim)
+			V.Local.sRecordNo.Set(V.Local.sRet3(2).Trim)
+			V.Local.fQtyShipped.Set(V.Local.sRet3(3).Float)
+			
+	
+			'query order hist lines to get the freight per piece and GL Account
+			F.Intrinsic.String.Build("SELECT GL_ACCOUNT, FREIGHT_PER_PIECE FROM V_ORDER_HIST_LINE WHERE INVOICE = '{0}' AND ORDER_NO = '{1}' AND ORDER_SUFFIX = '{2}' AND ORDER_LINE = '{3}'", V.Local.sInvoice.Trim, V.Local.sOrderNo.Trim, V.Local.sOrderSuffix.Trim, V.Local.sRecordNo.Trim, V.Local.sSQL)
+			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL, V.Local.sRet4)
+			F.Intrinsic.String.Split(V.Local.sRet4, "*!*", v.Local.sRet4)
+			V.Local.sGLAcct.Set(V.Local.sRet4(0).Trim)
+			V.Local.fFreightPerPiece.Set(V.Local.sRet4(1).Float)
+			F.Intrinsic.Control.If(V.Local.fFreightPerPiece,>,0)
+			
+				'multiply the qty shipped by the freight per piece
+				F.Intrinsic.Math.Mult(V.Local.fQtyShipped, V.Local.fFreightPerPiece, V.Local.fFreight)	
+			
+				'add row to temp datatable to be used later when adding all the order lines together
+				F.Data.DataTable.AddRow("dtTemp", "ORDER_NO", V.Local.sOrderNo.Trim, "ORDER_SUFFIX", V.Local.sOrderSuffix.Trim, "RECORD_NO", V.Local.sRecordNo.Trim,"SALES_GL", V.Local.sGLAcct.Trim, "TOTAL_FREIGHT", v.Local.fFreight)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.iCnt2)
+		
+	F.Intrinsic.Control.Next(V.Local.iCnt)
+	
+	'create a dataview for the temp table
+	F.Data.DataView.Create("dtTemp", "dvTemp")
+	'send the dataview to distinct datatable to get each order number included in the batch
+	F.Data.DataView.ToDataTableDistinct("dtTemp", "dvTemp", "dtTemp2","ORDER_NO*!*SALES_GL", True)
+	F.Data.DataView.Close("dtTemp", "dvTemp")
+	
+	'loop through the distinct datatable
+	F.Intrinsic.Control.For(V.Local.iCnt, 0, V.DataTable.dtTemp2.RowCount--,1)
+		'use each distinct order number to create a view of the original temp table
+		F.Intrinsic.String.Build("[ORDER_NO] = '{0}'", V.DataTable.dtTemp2(V.Local.iCnt).ORDER_NO!FieldValTrim, v.Local.sFilter)
+		F.Data.DataView.Create("dtTemp", "dvTemp", 22, V.Local.sFilter, "")
+		
+		'loop through the distinct dataview for that order to add up the freight for the order
+		F.Intrinsic.Control.For(V.Local.iCnt2, 0, V.DataView.dtTemp!dvTemp.RowCount--,1)
+			V.Local.fFreight.Set(V.DataView.dtTemp!dvTemp(V.Local.iCnt2).TOTAL_FREIGHT!FieldValFloat)
+			F.Intrinsic.Control.If(V.Local.iCnt2,=,0)
+				V.Local.fTotFreight.Set(V.Local.fFreight)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.Math.Add(V.Local.fTotFreight, V.Local.fFreight, V.Local.fTotFreight)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.iCnt2)
+		
+		'add row to parent table
+		F.Data.DataTable.AddRow("dtGL", "ORDER_NO", V.DataTable.dtTemp2(V.Local.iCnt).ORDER_NO!FieldValTrim)
+		
+		F.Intrinsic.Math.Round(V.Local.fTotFreight, 2, V.Local.fTotFreight)
+		'set the child datatables debit and credit columns
+		'figure out how to get the sales GL account since it doesn't exist in the dataview
+		F.Data.DataTable.AddRow("dtGL$Child", "ORDER_NO", V.DataTable.dtTemp2(V.Local.iCnt).ORDER_NO!FieldValTrim, "DEBIT", V.Local.fTotFreight, "GL_ACCT", V.DataTable.dtTemp!dvTemp(V.Local.iCnt).SALES_GL!FieldValTrim)
+		F.Data.DataTable.AddRow("dtGL$Child", "ORDER_NO", V.DataTable.dtTemp2(V.Local.iCnt).ORDER_NO!FieldValTrim, "CREDIT", V.Local.fTotFreight, "GL_ACCT", V.Local.sFreightGL.Trim)
+		
+		F.Data.DataView.Close("dtTemp","dvTemp")
+	F.Intrinsic.Control.Next(V.Local.iCnt)
+F.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Freight Journal Entry", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+
+Program.Sub.LoadGrid.End
+
+Program.Sub.cmdApprove_Click.Start
+F.Intrinsic.Control.Try
+V.Local.dDateInvoice.Declare(Date)
+V.Local.fTotalFreight.Declare(Float)
+V.Local.fTotSales.Declare(Float)
+V.Local.iCnt.Declare(Long)
+V.Local.iCnt2.Declare(Long)
+V.Local.iRet.Declare(Long)
+V.Local.sFreightGL.Declare(String)
+V.Local.sSalesGL.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sJournalEntryDesc.Declare(String)
+V.Local.sJEBatchRef.Declare(String)
+V.Local.sOrderNo.Declare(String)
+V.Local.sFilter.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sRet2.Declare(String)
+V.Local.sInvoice.Declare(String)
+V.Local.FileName.Declare(String)
+V.Local.sField.Declare(String)
+V.Local.sGL_LINE.Declare(String)
+V.Local.FileDir.Declare(String)
+V.Local.sTemp.Declare(String)
+V.Local.sGL_Batch.Declare(String)
+V.Local.sGLuplMSG.Declare(String)
+V.Local.sUserId.Declare(String)
+V.Local.sFileParams.Declare(String)
+
+'pull the total freight for each order
+'add all the freight for each order together
+
+'loop through parent datatable
+F.Intrinsic.Control.For(V.Local.iCnt, 0, V.DataTable.dtGL.RowCount--,1)
+	V.Local.sOrderNo.Set(V.DataTable.dtGL(V.Local.iCnt).ORDER_NO!FieldValTrim)
+	F.Intrinsic.String.Build("[ORDER_NO] = '{0}'", v.Local.sOrderNo.Trim, v.Local.sFilter)
+	F.Data.DataTable.Select("dtGL$Child", v.Local.sFilter, V.Local.sRet)
+	'check to make sure the order was found in the child grid
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		'split the rows if more than one exists
+		F.Intrinsic.String.Split(V.Local.sRet, "#$#", V.Local.sRet)
+		'loop through the rows that match
+		F.Intrinsic.Control.For(V.Local.iCnt2, 0, V.Local.sRet.UBound, 1)
+			F.Intrinsic.String.Split(V.Local.sRet(V.Local.iCnt2), "*!*", V.Local.sRet2)
+			'if we're on the first row for the order - we know it should be the debit record
+			'F.Intrinsic.Control.If(V.Local.iCnt2,=,0)
+			
+			V.Local.sSalesGL.Set(V.DataTable.dtGL$Child(V.Local.sRet2(0).long).GL_ACCT!FieldValTrim)
+			F.Intrinsic.Control.If(V.Local.iCnt,=,0)
+				V.Local.fTotSales.Set(V.DataTable.dtGL$Child(V.Local.sRet2(0).long).DEBIT!FieldValFloat)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.Math.Add(V.Local.fTotSales, V.DataTable.dtGL$Child(V.Local.sRet2(0).long).DEBIT!FieldValFloat, V.Local.fTotSales)
+			F.Intrinsic.Control.EndIf
+			
+			'if we're on the second row for the order, we know it should be the credit record
+			V.Local.sFreightGL.Set(V.DataTable.dtGL$Child(V.Local.sRet2(1).long).GL_ACCT!FieldValTrim)
+			F.Intrinsic.Control.If(V.Local.iCnt,=,0)
+				V.Local.fTotalFreight.Set(V.DataTable.dtGL$Child(V.Local.sRet2(1).long).CREDIT!FieldValFloat)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.Math.Add(V.Local.fTotalFreight, V.DataTable.dtGL$Child(V.Local.sRet2(1).long).CREDIT!FieldValFloat, V.Local.fTotalFreight)
+			F.Intrinsic.Control.EndIf
+			
+		F.Intrinsic.Control.Next(V.Local.iCnt2)
+	F.Intrinsic.Control.EndIf
+	
+F.Intrinsic.Control.Next(V.Local.iCnt)
+
+'multiply total freight by -1 because the account is being credited
+F.Intrinsic.Math.Mult(V.Local.fTotalFreight, -1, V.Local.fTotalFreight)
+
+'pull the Sales GL account
+'query OP HEADER  to get the sales GL account - double check query criteria to make sure we're pulling the correct sales GL account
+F.ODBC.Connection!con.ExecuteAndReturn("SELECT TEXT1 FROM V_OP_HEADER WHERE ID = 402460 AND SEQUENCE = 0000", V.Local.sSalesGL)
+F.Intrinsic.Control.If(V.Local.sSalesGL.Trim,<>,"")
+	V.Local.sFreightGL.Set(v.Screen.f_Main!txtFreightGL.Text)
+	'build information for XGL004 callwrapper
+	'One line for debit to sales account
+	'one line for credit (-) to shipping GL Account
+	'batch reference needs to be 'FREIGHT RECLASS'
+	V.Local.sJEBatchRef.Set("FREIGHT RECLASS")
+	'JE DESCRIPTION NEEDS TO BE FOR THE INVOICE BATCH BEING PROCESSED
+	F.Intrinsic.String.Build("BATCH {0} FREIGHT RECLASS", V.Global.sInvBatchNum.Trim, V.Local.sJournalEntryDesc)
+	
+	'create 2 records in the GL file - 1 for sales GL and 1 for freight GL
+	'required fields for XGL004
+		'Params @@@GLTERMINALUser (passed to 12 characters)
+		'TEXT-ACCOUNT-NO-1 (CHAR15)
+		'TEXT_AMT 			(CHAR 12)
+		'TEXT_DESC			(CHAR 30)
+		'TEXT-YY			(CHAR 2)
+		'TEXT-MM			(CHAR 2)
+		'TEXT_VOUCHER		(CHAR 7)
+	'TEXT-REFERENCE 	(CHAR 15)
+	
+	'add sales GL entry record
+	'Params
+'	V.Local.sFileParams.Set("{0}GL{1}{2}", V.Caller.CompanyCode.Trim, V.Caller.Terminal.Trim, V.Caller.User.Trim, V.Local.sFileParams)
+'	F.Intrinsic.String.RPad(V.Local.sFileParams," ",12,V.Local.sField)
+'	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+'	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'GL JOURNAL ENTRY RECORDS
+	' GL Journal - GL account
+	F.Intrinsic.String.RPad(V.Local.sSalesGL," ",15,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' GL Journal - Amount
+	F.Intrinsic.String.LPad(V.Local.fTotSales," ",12,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' GL Journal - Desc
+	F.Intrinsic.String.Left(v.Local.sJournalEntryDesc.Trim,30,V.Local.sField)
+	F.Intrinsic.String.RPad(V.Local.sField," ",30,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' Dates
+	V.Local.dDateInvoice.Set(V.Ambient.Date)
+	F.Intrinsic.String.Format(V.Local.dDateInvoice,"YY",V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	F.Intrinsic.String.Format(V.Local.dDateInvoice,"MM",V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' VOUCHER - invoice number
+	V.Local.sInvoice.Set("")
+	F.Intrinsic.String.Left(V.Local.sInvoice,15,V.Local.sField)
+	F.Intrinsic.String.RPad(V.Local.sField," ",15,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' Reference - batch
+	F.Intrinsic.String.RPad(V.Local.sJEBatchRef.Trim," ",15,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Ambient.NewLine,V.Local.sGL_LINE)
+	
+	V.Global.sGLUPLOAD.Set(V.Local.sGL_LINE)
+
+	'add freight credit GL	
+	'GL JOURNAL ENTRY RECORDS
+	' GL Journal - GL account
+	V.Local.sGL_LINE.Set(" ")
+	'Params
+'	V.Local.sFileParams.Set("{0}GL{1}{2}", V.Caller.CompanyCode.Trim, V.Caller.Terminal.Trim, V.Caller.User.Trim, V.Local.sFileParams)
+'	F.Intrinsic.String.RPad(V.Local.sFileParams," ",12,V.Local.sField)
+'	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+'	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	' GL Journal - GL account
+	F.Intrinsic.String.RPad(V.Local.sFreightGL.Trim," ",15,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' GL Journal - Amount
+	F.Intrinsic.String.LPad(V.Local.fTotalFreight," ",12,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' GL Journal - Desc
+	F.Intrinsic.String.Left(v.Local.sJournalEntryDesc.Trim,30,V.Local.sField)
+	F.Intrinsic.String.RPad(V.Local.sField," ",30,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' Dates
+	V.Local.dDateInvoice.Set(V.Ambient.Date)
+	F.Intrinsic.String.Format(V.Local.dDateInvoice,"YY",V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	F.Intrinsic.String.Format(V.Local.dDateInvoice,"MM",V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' VOUCHER - invoice number
+	V.Local.sInvoice.Set("")
+	F.Intrinsic.String.Left(V.Local.sInvoice,15,V.Local.sField)
+	F.Intrinsic.String.RPad(V.Local.sField," ",15,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,",",V.Local.sGL_LINE)
+	'' Reference - batch
+	F.Intrinsic.String.RPad(V.Local.sJEBatchRef.Trim," ",15,V.Local.sField)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Local.sField,V.Local.sGL_LINE)
+	F.Intrinsic.String.Concat(V.Local.sGL_LINE,V.Ambient.NewLine,V.Local.sGL_LINE)
+	
+	F.Intrinsic.String.Build("{0}{1}",V.Global.sGLUPLOAD, V.Local.sGL_LINE, v.Global.sGLUPLOAD)
+
+	F.Intrinsic.Control.If(V.Global.sGLUPLOAD.Trim,<>,"")
+		' ------------GL UPLOAD - - - - - - - - - -
+		' during testing I used this file but this is not the process for XGL004 uploading
+		F.Intrinsic.String.Concat(V.Caller.FilesDir,"\GLUPLOAD.txt",V.Local.filename)
+		F.Intrinsic.File.String2File(V.Local.filename,V.Global.sGLUPLOAD)
+		
+	'	Params @@@GLTERMINALUser (passed to 12 characters)
+		'Make file and run upload program
+		'changed on 8/18/2010 by enm
+		F.Intrinsic.String.RPad(V.Caller.User," ",8,V.Local.stemp)
+		F.Intrinsic.String.Concat(V.Caller.FilesDir,"\","GLUPLD",V.Caller.Terminal,V.Caller.CompanyCode,V.Local.filedir)
+		' F.Intrinsic.String.Concat(V.Caller.FilesDir,"\","GL",V.Caller.Terminal,V.Caller.CompanyCode,v.Local.stemp,V.Local.filedir)
+		F.Intrinsic.File.String2File(V.Local.filedir,V.Global.sGLUPLOAD)
+		F.Intrinsic.String.Concat("GLUPLD",V.Caller.Terminal,V.Caller.CompanyCode,V.Local.filename)
+		'F.Intrinsic.String.RPad(V.Local.filename," ",12,V.Local.filename)
+		F.Intrinsic.String.Concat(V.Ambient.QUADQuote,V.Caller.CompanyCode,V.Local.filename,V.Local.stemp.UCase,V.Ambient.QUADQuote,V.Global.sGLUPLOAD)
+		
+		' import GL_JRNL_ENTRY ===========================================================
+		F.Intrinsic.Task.LaunchGSSSync("XGL004","-C",V.Global.sGLUPLOAD)
+		V.Global.sGLUPLOAD.Set("")
+		
+		'update GL POST DATE
+		'F.Intrinsic.String.Concat("Update GL_JRNL_ENTRY Set P_DATE= '",V.GLobal.sP_DATE,"' where DESCR ='",V.Local.sJournalEntryDesc,"'",V.Local.sSql)
+		'F.ODBC.Connection!Conx.Execute(V.Local.sSql)
+		
+	'	f.Global.Security.GetUserId(V.Caller.User, V.Caller.CompanyCode, V.Local.iRet)
+	'	F.Intrinsic.String.Build("UPDATE GL_JRNL_ENTRY SET USERID = '{0}' WHERE DESCR = '{1}'", V.Local.iRet, V.Local.sSQL)
+	'	F.ODBC.Connection!con.Execute(V.Local.sSQL)
+		
+		' get journal BATCH number
+		F.Intrinsic.String.Concat("select * "," ",V.Local.sSql)
+		F.Intrinsic.String.Concat(V.Local.sSql," from GL_JRNL_ENTRY where DESCR = '",V.Local.sJournalEntryDesc,"'",V.Local.sSql)
+		F.ODBC.Connection!Con.OpenLocalRecordsetRO("rstGLJRNL",V.Local.sSql)
+		F.Intrinsic.Control.If(V.ODBC.Con!rstGLJRNL.EOF,=,False)
+			F.Intrinsic.string.LPad(V.ODBC.Con!rstGLJRNL.FieldVal!BATCH," ",10,V.Local.sGL_Batch)
+			F.Intrinsic.String.Build("The Freight Reclassification was uploaded into GL Batch: {0} at: {1}. It will need to be posted now.", V.Local.sGL_Batch.Trim,V.Ambient.Time, V.Local.sGLuplMSG)
+			F.Intrinsic.UI.Msgbox(V.Local.sGLuplMSG, "Upload Status")
+			F.Global.General.LaunchMenuTask(44,0, V.Local.iRet)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.UI.Msgbox("The Freight Reclassification was NOT uploaded to GL - CANCELLED or FAILED", "Upload Status")
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Con!rstGLJRNL.Close
+		
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("The Freight Reclassification was NOT uploaded to GL - CANCELLED or FAILED", "Upload Status")
+
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+'end the process
+F.Intrinsic.Control.CallSub(f_Main_Unload)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Freight Journal Entry", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdApprove_Click.End
+
+Program.Sub.Cancel.Start
+F.Intrinsic.Control.Try
+V.Local.iRet.Declare(Long)
+
+F.Intrinsic.UI.Msgbox("Are you sure you want to cancel? The Freight Journal Entry will not be created.", "Warning", 4, V.Local.iRet)
+F.Intrinsic.Control.If(V.Local.iRet,=,6)
+	F.Intrinsic.Control.CallSub(F_Main_Unload)
+F.Intrinsic.Control.ElseIf(V.Local.iRet,=,7)
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Freight Journal Entry", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.Cancel.End
+
+Program.Sub.F_Main_Unload.Start
+F.Intrinsic.Control.Try
+V.Local.bFileExists.Declare(Boolean)
+V.Local.iRet.Declare(Long)
+V.Local.sFQP.Declare(String)
+
+'close the connection
+F.ODBC.Connection!con.Close
+
+'end the script
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(ErrorMessage, "ErrorNumber", V.Ambient.ErrorNumber, "ErrorDescription", V.Ambient.ErrorDescription, "Subroutine", V.Ambient.CurrentSubroutine, "UNATTENDED", V.Global.bUnattended, "Project", "6526", "ProjectTitle", "Line Item Freight Zone", "Callback", "F_Main_UnLoad")
+F.Intrinsic.Control.EndTry
+Program.Sub.F_Main_Unload.End
+
+Program.Sub.ErrorMessage.Start
+'basic error message for replacing catch block
+'this is really just for when printing the message and ending program
+'pass error number, error description, current subroutine
+'optional callback sub, this will be called before ending
+'optional unattended parameters, those subs may not exist if not using them but won't be called
+F.Intrinsic.Control.Try
+
+V.Local.iError.Declare(Long)
+V.Local.sErrorDescription.Declare(String)
+V.Local.sSubroutine.Declare(String)
+V.Local.sError.Declare(String)
+V.Local.bExists.Declare(Boolean)
+V.Local.sCallback.Declare(String)
+
+V.Local.iError.Set(V.Args.ErrorNumber)
+V.Local.sErrorDescription.Set(V.Args.ErrorDescription)
+V.Local.sSubroutine.Set(V.Args.Subroutine)
+
+'make sure we aren't in an error loop
+F.Intrinsic.Control.If(V.Global.bError)
+	F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndIf
+V.Global.bError.Set(True)
+
+F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}", V.Caller.ScriptFile, V.Ambient.Newline, V.Local.sSubroutine, V.Local.iError, V.Local.sErrorDescription, V.Ambient.GABVersion, V.Local.sError)
+
+F.Intrinsic.Variable.ArgExists("UNATTENDED", V.Local.bExists)
+F.Intrinsic.Control.If(V.Local.bExists)
+	F.Intrinsic.Control.If(V.Args.UNATTENDED)
+		F.Intrinsic.Control.CallSub(UnattendedErrorMessage, "MESSAGE", V.Local.sError, "PROJECT", V.Args.PROJECT, "PROJECTTITLE", V.Args.PROJECTTITLE)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Variable.ArgExists("Callback", V.Local.bExists)
+F.Intrinsic.Control.If(V.Local.bExists)
+	V.Local.sCallback.Set(V.Args.Callback.Trim)
+	F.Intrinsic.Control.CallSub(V.Local.sCallback)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Caller.ScriptFile,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndTry
+Program.Sub.ErrorMessage.End
+
+Program.Sub.Comments.Start
+${$5$}$20.1.8286.22461$}$1
+${$6$}$acollins$}$20220919182807450$}$h98hERc2yV72q0GaUGlwSaoK/aefTdVk/XotSp2jZHhq+jVH89jdLk94smsWHPY1iy1Y9Kmq78GrmkN4tLS8aw==
+Program.Sub.Comments.End
